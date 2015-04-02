@@ -58,18 +58,18 @@ android {
         }
         release {
             signingConfig signingConfigs.releaseConfig
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     productFlavors {
         beta {
-            packageName "com.meofou.android"
+            applicationId "com.meofou.android"
         }
 
         development {
-            packageName "com.meofou.android"
+            applicationId "com.meofou.android"
         }
     }
 
