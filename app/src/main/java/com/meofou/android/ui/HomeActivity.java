@@ -4,11 +4,18 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.meofou.android.R;
+import com.meofou.android.api.MoefouManagerImpl;
+import com.meofou.android.object.User;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 
 public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -46,7 +53,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, 0); // this disables the animation
+                super.onDrawerSlide(drawerView, slideOffset);
             }
         };
         mDrawerToggle.syncState();
@@ -61,6 +68,16 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     @Override
     protected void onResume() {
         super.onResume();
+        Observable<User> observable = MoefouManagerImpl.getInstance().getCurrentUser();
+        observable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<User>() {
+                    @Override
+                    public void call(User user) {
+
+                        Log.e("haha", "user " + user);
+
+                    }
+                });
     }
 
     @Override

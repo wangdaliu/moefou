@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':scribe'
+project(':scribe').projectDir = new File('vendor/scribe')

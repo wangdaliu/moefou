@@ -8,12 +8,9 @@ public class Application extends android.app.Application {
         return instance;
     }
 
-    public Application() {
-        Application.instance = this;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
     }
 }
