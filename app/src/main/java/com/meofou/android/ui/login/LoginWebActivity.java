@@ -107,6 +107,7 @@ public class LoginWebActivity extends BaseActivity {
             @Override
             public void onCompleted() {
                 startActivity(new Intent(LoginWebActivity.this, HomeActivity.class));
+                LoginWebActivity.this.finish();
             }
 
             @Override
@@ -127,6 +128,9 @@ public class LoginWebActivity extends BaseActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Uri uri = Uri.parse(url);
+            if (!uri.toString().startsWith(Const.BASE_URL)) {
+                return true;
+            }
             view.loadUrl(url);
             Set<String> set = uri.getQueryParameterNames();
             if (set.contains("oauth_verifier")) {

@@ -2,13 +2,17 @@ package com.meofou.android.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.meofou.android.Const;
 import com.meofou.android.R;
 import com.meofou.android.ui.BaseActivity;
+import com.meofou.android.ui.HomeActivity;
+import com.meofou.android.util.SharedPreferenceUtil;
 import com.novoda.notils.caster.Views;
 
 public class LogoActivity extends BaseActivity {
@@ -27,12 +31,12 @@ public class LogoActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-//                String userToken = SharedPreferenceUtil.getValue(Const.USER_INFO_FILE, Const.USER_TOKEN);
-//                if (TextUtils.isEmpty(userToken)) {
-                startActivity(new Intent(LogoActivity.this, LoginWebActivity.class));
-//                } else {
-//                    startActivity(new Intent(LogoActivity.this, HomeActivity.class));
-//                }
+                String userToken = SharedPreferenceUtil.getValue(Const.USER_INFO_FILE, Const.USER_TOKEN);
+                if (TextUtils.isEmpty(userToken)) {
+                    startActivity(new Intent(LogoActivity.this, LoginWebActivity.class));
+                } else {
+                    startActivity(new Intent(LogoActivity.this, HomeActivity.class));
+                }
                 finish();
             }
 
