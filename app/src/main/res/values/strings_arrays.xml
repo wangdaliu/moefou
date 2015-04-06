@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="side">
-        <item></item>
-        <item></item>
+        <item>发现音乐</item>
+        <item>我的离线</item>
+        <item>我的收藏</item>
     </string-array>
-
 
 </resources>

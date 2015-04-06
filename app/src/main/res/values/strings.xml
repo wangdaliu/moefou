@@ -3,4 +3,9 @@
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
     <string name="home">萌否FM</string>
+
+    <string name="my_music">发现音乐</string>
+    <string name="my_offline">我的离线</string>
+    <string name="my_fav">我的收藏</string>
+
 </resources>

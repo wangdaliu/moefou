@@ -4,36 +4,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:font="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="150dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="30dp"
+    android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="190dp">
+    <ImageView
+        android:id="@+id/icon"
+        android:src="@mipmap/default_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="190dp"
-            android:scaleType="fitXY"/>
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"/>
-
-        <com.moefou.android.ui.views.font.TypefaceTextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="3dp"
-            android:textSize="14sp"
-            android:paddingBottom="12dp"
-            android:layout_marginLeft="16dp"
-            android:layout_alignParentBottom="true"
-            font:typeface="roboto_regular"/>
-    </RelativeLayout>
+    <com.moefou.android.ui.views.font.TypefaceTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black87"
+        android:textSize="16sp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentBottom="true"
+        font:typeface="roboto_regular"/>
 
 </LinearLayout>

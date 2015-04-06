@@ -11,10 +11,12 @@ import android.widget.ListView;
 import com.activeandroid.query.Delete;
 import com.moefou.android.R;
 import com.moefou.android.api.MoefouManagerImpl;
-import com.moefou.android.object.user.UserResponse;
 import com.moefou.android.object.user.User;
+import com.moefou.android.object.user.UserResponse;
 import com.moefou.android.ui.side.SideAdapter;
 import com.moefou.android.ui.side.SideLayout;
+import com.moefou.android.ui.views.custom.CustomViewPager;
+import com.moefou.android.ui.views.font.TypefaceTextView;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,6 +30,8 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private SideLayout mSideLayout;
+    public View mCurrentView;
+    private CustomViewPager mCustomViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,14 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         mSideLayout = new SideLayout(this);
         mMenuListView.addHeaderView(mSideLayout, null, false);
         mMenuListView.setAdapter(new SideAdapter(this, getResources().getStringArray(R.array.side)));
+
+        mMenuListView.setOnItemClickListener(this);
+
+        mCustomViewPager = (CustomViewPager) findViewById(R.id.vp_pages);
+        mCustomViewPager.setOffscreenPageLimit(3);
+        HomePagerAdapter pagerAdapter = new HomePagerAdapter(this);
+        mCustomViewPager.setAdapter(pagerAdapter);
+
         fetchData();
     }
 
@@ -94,6 +106,15 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mDrawerLayout.closeDrawer(mMenuListView);
+        String[] sideArray = getResources().getStringArray(R.array.side);
+        getSupportActionBar().setTitle(sideArray[position - 1]);
+        mCustomViewPager.setCurrentItem(position - 1, false);
+        TypefaceTextView label = (TypefaceTextView) view.findViewById(R.id.label);
+        label.setTextColor(getResources().getColor(R.color.item_focus));
+        if (null != mCurrentView && mCurrentView != view) {
+            ((TypefaceTextView) mCurrentView.findViewById(R.id.label)).setTextColor(getResources().getColor(R.color.black87));
+        }
+        mCurrentView = view;
     }
 
 }

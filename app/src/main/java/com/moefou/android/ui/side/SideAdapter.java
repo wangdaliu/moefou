@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.moefou.android.R;
+import com.moefou.android.ui.HomeActivity;
 import com.moefou.android.ui.views.font.TypefaceTextView;
 
 public class SideAdapter extends BaseAdapter {
@@ -47,6 +48,13 @@ public class SideAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        if (((HomeActivity) mContext).mCurrentView == null && mLabelArray[position].equals(mContext.getResources().getString(R.string.my_music))) {
+            ((HomeActivity) mContext).mCurrentView = convertView;
+            ((TypefaceTextView) convertView.findViewById(R.id.label)).setTextColor(mContext.getResources().getColor(R.color.item_focus));
+        }
+
+        holder.label.setText(mLabelArray[position]);
 
         return convertView;
     }
