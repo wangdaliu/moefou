@@ -1,6 +1,8 @@
 package com.moefou.android;
 
 
+import com.activeandroid.ActiveAndroid;
+
 public class Application extends android.app.Application {
     private static Application instance;
 
@@ -12,5 +14,6 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        ActiveAndroid.initialize(this);
     }
 }

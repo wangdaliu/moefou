@@ -4,17 +4,18 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.activeandroid.query.Delete;
 import com.moefou.android.R;
 import com.moefou.android.api.MoefouManagerImpl;
+import com.moefou.android.object.user.Icon;
 import com.moefou.android.object.user.ResponseUser;
 import com.moefou.android.object.user.User;
-import com.moefou.android.ui.views.font.TypefaceTextView;
+import com.moefou.android.ui.side.SideAdapter;
+import com.moefou.android.ui.side.SideLayout;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -27,6 +28,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     private ListView mMenuListView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private SideLayout mSideLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,25 +68,26 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
         // load menu
         mMenuListView = (ListView) findViewById(R.id.menu_list);
-        View menuHeader = LayoutInflater.from(this).inflate(R.layout.menu_header, null);
-        mMenuListView.addHeaderView(menuHeader, null, false);
 
-        TypefaceTextView name = (TypefaceTextView) menuHeader.findViewById(R.id.name);
-
+        mSideLayout = new SideLayout(this);
+        mMenuListView.addHeaderView(mSideLayout, null, false);
+        mMenuListView.setAdapter(new SideAdapter(this, getResources().getStringArray(R.array.side)));
+        fetchData();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void fetchData() {
+        // fetch user
         Observable<ResponseUser> observable = MoefouManagerImpl.getInstance().getCurrentUser();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<ResponseUser>() {
                     @Override
                     public void call(ResponseUser responseUser) {
+                        new Delete().from(User.class).execute();
                         User user = responseUser.getResponse().getUser();
-                        user.getUser_name();
-
+                        user.getUser_avatar().save();
+                        user.save();
+                        mSideLayout.updatepProfile();
                     }
                 });
     }

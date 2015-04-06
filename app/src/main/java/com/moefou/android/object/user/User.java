@@ -1,44 +1,65 @@
 package com.moefou.android.object.user;
 
-public class User {
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+@Table(name = "User")
+public class User extends Model {
+
+    @Column(name = "_id")
+    private int id;
 
     // 用户id号
+    @Column(name = "uid")
     private int uid;
 
     // 用户名（登录名）
+    @Column(name = "user_name")
     private String user_name;
 
     // 昵称
+    @Column(name = "user_nickname")
     private String user_nickname;
 
     // 注册时间
+    @Column(name = "user_registered")
     private long user_registered;
 
     // 上次活跃时间
+    @Column(name = "user_lastactivity")
     private long user_lastactivity;
 
     // 主站中的个人主页
+    @Column(name = "user_url")
     private String user_url;
 
     // 电台中的个人主页
+    @Column(name = "user_fm_url")
     private String user_fm_url;
 
     // 头像，分为小中大三种尺寸
+    @Column(name = "user_avatar")
     private Icon user_avatar;
 
     // 参加的小组，按加入时间排列
+    @Column(name = "groups")
     private String groups;
 
     // 粉丝们的uid
+    @Column(name = "follower")
     private String follower;
 
     // 好友们的uid
+    @Column(name = "following")
     private String following;
 
     // 萌邮未读数
+    @Column(name = "msg")
     private String msg;
 
     // 个人介绍
+    @Column(name = "about")
     private String about;
 
     public int getUid() {

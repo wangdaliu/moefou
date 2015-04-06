@@ -3,4 +3,6 @@
     <color name="actionbar_color">#3F53B1</color>
     <color name="statusbar_color">#2F3E9E</color>
     <color name="window_bg">#E1E1E1</color>
+    <color name="black87">#DE000000</color>
+    <color name="black54">#8A000000</color>
 </resources>
