@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
-
 import com.moefou.android.R;
 
 import java.lang.ref.SoftReference;

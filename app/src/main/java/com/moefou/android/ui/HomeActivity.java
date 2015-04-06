@@ -11,7 +11,6 @@ import android.widget.ListView;
 import com.activeandroid.query.Delete;
 import com.moefou.android.R;
 import com.moefou.android.api.MoefouManagerImpl;
-import com.moefou.android.object.user.Icon;
 import com.moefou.android.object.user.ResponseUser;
 import com.moefou.android.object.user.User;
 import com.moefou.android.ui.side.SideAdapter;
