@@ -1,18 +1,16 @@
 package com.moefou.android.object.user;
 
-import com.moefou.android.object.ResponseInformation;
-
 public class UserResponseObject {
 
-    private ResponseInformation information;
+    private UserResponseInformation information;
 
     private User user;
 
-    public ResponseInformation getInformation() {
+    public UserResponseInformation getInformation() {
         return information;
     }
 
-    public void setInformation(ResponseInformation information) {
+    public void setInformation(UserResponseInformation information) {
         this.information = information;
     }
 

@@ -1,8 +1,8 @@
-package com.moefou.android.object;
+package com.moefou.android.object.user;
 
-public class ResponseInformation {
+public class UserResponseInformation {
 
-    private String parameters;
+    private UserParameters parameters;
 
     private String[] msg;
 
@@ -12,11 +12,11 @@ public class ResponseInformation {
 
     private String request;
 
-    public String getParameters() {
+    public UserParameters getParameters() {
         return parameters;
     }
 
-    public void setParameters(String parameters) {
+    public void setParameters(UserParameters parameters) {
         this.parameters = parameters;
     }
 

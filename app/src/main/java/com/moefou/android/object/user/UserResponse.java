@@ -1,6 +1,6 @@
 package com.moefou.android.object.user;
 
-public class ResponseUser {
+public class UserResponse {
 
     private UserResponseObject response;
 

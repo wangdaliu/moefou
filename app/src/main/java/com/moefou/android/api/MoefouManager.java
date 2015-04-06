@@ -1,16 +1,16 @@
 package com.moefou.android.api;
 
 
-import com.moefou.android.object.user.ResponseUser;
+import com.moefou.android.object.user.UserResponse;
 
 import rx.Observable;
 
 public interface MoefouManager {
 
-    public Observable<ResponseUser> getCurrentUser();
+    public Observable<UserResponse> getCurrentUser();
 
-    public Observable<ResponseUser> getUserByUid(int uid);
+    public Observable<UserResponse> getUserByUid(int uid);
 
-    public Observable<ResponseUser> getUserByName(String userName);
+    public Observable<UserResponse> getUserByName(String userName);
 
 }

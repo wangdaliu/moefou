@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.activeandroid.query.Delete;
 import com.moefou.android.R;
 import com.moefou.android.api.MoefouManagerImpl;
-import com.moefou.android.object.user.ResponseUser;
+import com.moefou.android.object.user.UserResponse;
 import com.moefou.android.object.user.User;
 import com.moefou.android.ui.side.SideAdapter;
 import com.moefou.android.ui.side.SideLayout;
@@ -76,12 +76,12 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private void fetchData() {
         // fetch user
-        Observable<ResponseUser> observable = MoefouManagerImpl.getInstance().getCurrentUser();
+        Observable<UserResponse> observable = MoefouManagerImpl.getInstance().getCurrentUser();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<ResponseUser>() {
+                .subscribe(new Action1<UserResponse>() {
                     @Override
-                    public void call(ResponseUser responseUser) {
+                    public void call(UserResponse responseUser) {
                         new Delete().from(User.class).execute();
                         User user = responseUser.getResponse().getUser();
                         user.getUser_avatar().save();

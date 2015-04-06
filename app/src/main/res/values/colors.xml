@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="actionbar_color">#3F53B1</color>
-    <color name="statusbar_color">#2F3E9E</color>
+    <color name="actionbar_color">#5CBC7D</color>
+    <color name="statusbar_color">#6BBE7B</color>
     <color name="window_bg">#E1E1E1</color>
     <color name="black87">#DE000000</color>
     <color name="black54">#8A000000</color>

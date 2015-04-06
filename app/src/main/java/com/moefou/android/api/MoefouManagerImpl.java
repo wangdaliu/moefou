@@ -1,7 +1,7 @@
 package com.moefou.android.api;
 
 
-import com.moefou.android.object.user.ResponseUser;
+import com.moefou.android.object.user.UserResponse;
 
 import org.scribe.model.Verb;
 
@@ -32,18 +32,18 @@ public class MoefouManagerImpl implements MoefouManager {
     }
 
     @Override
-    public Observable<ResponseUser> getCurrentUser() {
+    public Observable<UserResponse> getCurrentUser() {
         MoefouApi api = RestClient.getService(MoefouApi.class, Verb.GET, "/user/detail.json");
         return api.getCurrentUser();
     }
 
     @Override
-    public Observable<ResponseUser> getUserByUid(int uid) {
+    public Observable<UserResponse> getUserByUid(int uid) {
         return null;
     }
 
     @Override
-    public Observable<ResponseUser> getUserByName(String userName) {
+    public Observable<UserResponse> getUserByName(String userName) {
         return null;
     }
 }
