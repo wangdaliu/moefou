@@ -7,5 +7,6 @@
     <string name="my_music">发现音乐</string>
     <string name="my_offline">我的离线</string>
     <string name="my_fav">我的收藏</string>
+    <string name="my_private_music">我的私人 MHz</string>
 
 </resources>
