@@ -4,6 +4,7 @@
     xmlns:font="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/content"
     android:orientation="vertical">
 
     <com.moefou.android.ui.views.font.TypefaceTextView
@@ -73,18 +74,21 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/action_unfav"
             android:layout_weight="1"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@drawable/unfav"/>
 
         <ImageView
+            android:id="@+id/action_delete"
             android:layout_weight="1"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@drawable/delete"/>
 
         <ImageView
+            android:id="@+id/action_next"
             android:layout_weight="1"
             android:layout_width="36dp"
             android:layout_height="36dp"
