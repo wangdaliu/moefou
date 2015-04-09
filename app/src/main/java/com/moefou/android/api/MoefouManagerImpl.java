@@ -6,8 +6,6 @@ import com.moefou.android.object.wiki.WikiResponse;
 
 import org.scribe.model.Verb;
 
-import rx.Observable;
-
 public class MoefouManagerImpl implements MoefouManager {
 
     private String accessToken;
@@ -50,7 +48,7 @@ public class MoefouManagerImpl implements MoefouManager {
 
     @Override
     public WikiResponse getWikiList(String wikiType) {
-        MoefouApi api = RestClient.getService(MoefouApi.class, Verb.GET, "/wikis.json?wiki_type=wikiType");
+        MoefouApi api = RestClient.getService(MoefouApi.class, Verb.GET, "/wikis.json?wiki_type=" + wikiType);
         return api.getWikiList(wikiType);
     }
 }
