@@ -1,17 +1,30 @@
 package com.moefou.android.object.wiki;
 
-public class WikiCover {
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+@Table(name = "WikiCover")
+public class WikiCover extends Model {
+
+    @Column(name = "_id")
+    private int id;
 
     // 96x96
+    @Column(name = "small")
     private String small;
 
     // 144x192
+    @Column(name = "medium")
     private String medium;
 
     // 192x192
+    @Column(name = "square")
     private String square;
 
     // 原始尺寸
+    @Column(name = "large")
     private String large;
 
     public String getSmall() {

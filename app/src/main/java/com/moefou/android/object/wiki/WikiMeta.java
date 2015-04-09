@@ -1,14 +1,25 @@
 package com.moefou.android.object.wiki;
 
-public class WikiMeta {
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+@Table(name = "WikiMeta")
+public class WikiMeta extends Model {
+
+    @Column(name = "_id")
+    private int id;
 
     // 字段名
+    @Column(name = "meta_key")
     private String meta_key;
 
     // 字段值
+    @Column(name = "meta_value")
     private String meta_value;
 
     // 字段类型，1为小字段，2为大字段
+    @Column(name = "meta_type")
     private int meta_type;
 
     public String getMeta_key() {

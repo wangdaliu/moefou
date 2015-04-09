@@ -8,20 +8,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.activeandroid.query.Delete;
 import com.moefou.android.R;
-import com.moefou.android.api.MoefouManagerImpl;
-import com.moefou.android.object.user.User;
-import com.moefou.android.object.user.UserResponse;
+import com.moefou.android.event.BusProvider;
+import com.moefou.android.event.FetchUserEvent;
+import com.moefou.android.event.FetchWikiEvent;
+import com.moefou.android.task.FetchUserTask;
+import com.moefou.android.task.FetchWikiTask;
 import com.moefou.android.ui.side.SideAdapter;
 import com.moefou.android.ui.side.SideLayout;
 import com.moefou.android.ui.views.custom.CustomViewPager;
 import com.moefou.android.ui.views.font.TypefaceTextView;
-
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import com.squareup.otto.Subscribe;
 
 
 public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -34,10 +31,18 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     private CustomViewPager mCustomViewPager;
 
     @Override
+    public void onDestroy() {
+        BusProvider.getInstance().unregister(this);
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main);
+
+        BusProvider.getInstance().register(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,21 +91,20 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         fetchData();
     }
 
+    @Subscribe
+    public void onFetchUserEvent(FetchUserEvent event) {
+        mSideLayout.updatepProfile();
+    }
+
+    @Subscribe
+    public void onFetchWikiEvent(FetchWikiEvent event) {
+
+    }
+
     private void fetchData() {
         // fetch user
-        Observable<UserResponse> observable = MoefouManagerImpl.getInstance().getCurrentUser();
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<UserResponse>() {
-                    @Override
-                    public void call(UserResponse responseUser) {
-                        new Delete().from(User.class).execute();
-                        User user = responseUser.getResponse().getUser();
-                        user.getUser_avatar().save();
-                        user.save();
-                        mSideLayout.updatepProfile();
-                    }
-                });
+        new FetchUserTask().execute();
+        new FetchWikiTask().execute();
     }
 
     @Override

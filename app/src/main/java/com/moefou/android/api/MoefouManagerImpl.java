@@ -2,6 +2,7 @@ package com.moefou.android.api;
 
 
 import com.moefou.android.object.user.UserResponse;
+import com.moefou.android.object.wiki.WikiResponse;
 
 import org.scribe.model.Verb;
 
@@ -32,18 +33,24 @@ public class MoefouManagerImpl implements MoefouManager {
     }
 
     @Override
-    public Observable<UserResponse> getCurrentUser() {
+    public UserResponse getCurrentUser() {
         MoefouApi api = RestClient.getService(MoefouApi.class, Verb.GET, "/user/detail.json");
         return api.getCurrentUser();
     }
 
     @Override
-    public Observable<UserResponse> getUserByUid(int uid) {
+    public UserResponse getUserByUid(int uid) {
         return null;
     }
 
     @Override
-    public Observable<UserResponse> getUserByName(String userName) {
+    public UserResponse getUserByName(String userName) {
         return null;
+    }
+
+    @Override
+    public WikiResponse getWikiList(String wikiType) {
+        MoefouApi api = RestClient.getService(MoefouApi.class, Verb.GET, "/wikis.json?wiki_type=wikiType");
+        return api.getWikiList(wikiType);
     }
 }

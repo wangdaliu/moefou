@@ -9,47 +9,68 @@
 //        radio	音乐电台
 package com.moefou.android.object.wiki;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.util.List;
 
-public class Wiki {
+@Table(name = "Wiki")
+public class Wiki extends Model {
+
+    @Column(name = "_id")
+    private int id;
 
     // 条目id号
+    @Column(name = "wiki_id")
     private int wiki_id;
 
     // 标题
+    @Column(name = "wiki_title")
     private String wiki_title;
 
     // 标题拼音
+    @Column(name = "wiki_title_encode")
     private String wiki_title_encode;
 
     // 别名
+    @Column(name = "wiki_name")
     private String wiki_name;
 
     // 条目类型
+    @Column(name = "wiki_type")
     private String wiki_type;
 
     // 父级条目，当前系统中不启用
+    @Column(name = "wiki_parent")
     private int wiki_parent;
 
     // 上映/发售等日期
+    @Column(name = "wiki_date")
     private long wiki_date;
 
     // 最后修改时间
+    @Column(name = "wiki_modified")
     private long wiki_modified;
 
     // 最后修改的用户
+    @Column(name = "wiki_modified_user")
     private int wiki_modified_user;
 
     // 描述字段
+    @Column(name = "wiki_meta")
     private List<WikiMeta> wiki_meta;
 
     // 电台中的地址
+    @Column(name = "wiki_fm_url")
     private String wiki_fm_url;
 
     // 主站中的地址
+    @Column(name = "wiki_url")
     private String wiki_url;
 
     // 条目封面，分有各种尺寸
+    @Column(name = "wiki_cover")
     private WikiCover wiki_cover;
 
     public int getWiki_id() {
