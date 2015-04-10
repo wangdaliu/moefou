@@ -11,9 +11,7 @@ import android.widget.ListView;
 import com.moefou.android.R;
 import com.moefou.android.event.BusProvider;
 import com.moefou.android.event.FetchUserEvent;
-import com.moefou.android.event.FetchWikiEvent;
 import com.moefou.android.task.FetchUserTask;
-import com.moefou.android.task.FetchWikiTask;
 import com.moefou.android.ui.side.SideAdapter;
 import com.moefou.android.ui.side.SideLayout;
 import com.moefou.android.ui.views.custom.CustomViewPager;
@@ -96,15 +94,12 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         mSideLayout.updatepProfile();
     }
 
-    @Subscribe
-    public void onFetchWikiEvent(FetchWikiEvent event) {
 
-    }
 
     private void fetchData() {
         // fetch user
         new FetchUserTask().execute();
-        new FetchWikiTask().execute();
+
     }
 
     @Override

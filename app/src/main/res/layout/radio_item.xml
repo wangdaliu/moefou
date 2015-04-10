@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:font="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"/>
+
+
+    <com.moefou.android.ui.views.font.TypefaceTextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        font:typeface="roboto_regular"
+        android:singleLine="true"
+        android:textColor="@color/black87"/>
+
+    <com.moefou.android.ui.views.font.TypefaceTextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="12sp"
+        android:singleLine="true"
+        font:typeface="roboto_regular"
+        android:textColor="@color/black54"/>
+
+</RelativeLayout>

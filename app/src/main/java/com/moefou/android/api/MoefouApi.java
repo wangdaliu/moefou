@@ -26,5 +26,4 @@ public interface MoefouApi {
     WikiResponse getWikiList(
             @Query("wiki_type") String wikiType
     );
-
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <com.moefou.android.ui.views.font.TypefaceTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textSize="18sp"
+        android:layout_centerInParent="true"
+        font:typeface="roboto_medium"
+        android:textColor="@color/tab_grey"/>
+
+    <View
+        android:id="@+id/directory_line"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/green"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

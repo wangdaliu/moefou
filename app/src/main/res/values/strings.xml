@@ -8,5 +8,7 @@
     <string name="my_offline">我的离线</string>
     <string name="my_fav">我的收藏</string>
     <string name="my_private_music">我的私人 MHz</string>
+    <string name="radio">电台</string>
+    <string name="album">专辑</string>
 
 </resources>

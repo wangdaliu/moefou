@@ -73,6 +73,11 @@ public class Wiki extends Model {
     @Column(name = "wiki_cover")
     private WikiCover wiki_cover;
 
+    @Column(name = "wiki_user_fav")
+    private WikiUserFav wiki_user_fav;
+
+
+
     public int getWiki_id() {
         return wiki_id;
     }
@@ -175,5 +180,13 @@ public class Wiki extends Model {
 
     public void setWiki_cover(WikiCover wiki_cover) {
         this.wiki_cover = wiki_cover;
+    }
+
+    public WikiUserFav getWiki_user_fav() {
+        return wiki_user_fav;
+    }
+
+    public void setWiki_user_fav(WikiUserFav wiki_user_fav) {
+        this.wiki_user_fav = wiki_user_fav;
     }
 }

@@ -1,4 +1,4 @@
-package com.moefou.android.ui.home;
+package com.moefou.android.ui.play;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.moefou.android.R;

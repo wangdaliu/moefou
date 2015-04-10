@@ -5,23 +5,22 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.google.common.collect.ImmutableList;
 import com.moefou.android.ui.fav.FavouriteFragment;
 import com.moefou.android.ui.home.HomeFragment;
 import com.moefou.android.ui.offline.OfflineFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePagerAdapter extends FragmentPagerAdapter {
 
-    private List mFragments;
+    private List mFragments = new ArrayList();
 
     public HomePagerAdapter(FragmentActivity activity) {
         super(activity.getSupportFragmentManager());
-        HomeFragment homeFragment = new HomeFragment();
-        OfflineFragment offlineFragment = new OfflineFragment();
-        FavouriteFragment favouriteFragment = new FavouriteFragment();
-        mFragments = ImmutableList.of(homeFragment, offlineFragment, favouriteFragment);
+        mFragments.add(new HomeFragment());
+        mFragments.add(new OfflineFragment());
+        mFragments.add(new FavouriteFragment());
     }
 
     @Override

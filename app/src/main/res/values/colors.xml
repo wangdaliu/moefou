@@ -7,4 +7,7 @@
     <color name="black54">#8A000000</color>
     <color name="item_focus">#5CBC7D</color>
     <color name="green">#5CBC7D</color>
+    <color name="tab_color">#F5F5F5</color>
+    <color name="tab_grey">#AAAAAA</color>
+
 </resources>
