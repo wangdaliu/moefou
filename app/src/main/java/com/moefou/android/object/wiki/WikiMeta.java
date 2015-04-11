@@ -1,14 +1,13 @@
 package com.moefou.android.object.wiki;
 
+import android.provider.BaseColumns;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "WikiMeta")
+@Table(name = "WikiMeta", id = BaseColumns._ID)
 public class WikiMeta extends Model {
-
-    @Column(name = "_id")
-    private int id;
 
     // 字段名
     @Column(name = "meta_key")

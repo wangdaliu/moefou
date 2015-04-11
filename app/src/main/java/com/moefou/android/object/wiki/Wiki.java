@@ -9,17 +9,16 @@
 //        radio	音乐电台
 package com.moefou.android.object.wiki;
 
+import android.provider.BaseColumns;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 import java.util.List;
 
-@Table(name = "Wiki")
+@Table(name = "Wiki", id = BaseColumns._ID)
 public class Wiki extends Model {
-
-    @Column(name = "_id")
-    private int id;
 
     // 条目id号
     @Column(name = "wiki_id")
@@ -57,10 +56,6 @@ public class Wiki extends Model {
     @Column(name = "wiki_modified_user")
     private int wiki_modified_user;
 
-    // 描述字段
-    @Column(name = "wiki_meta")
-    private List<WikiMeta> wiki_meta;
-
     // 电台中的地址
     @Column(name = "wiki_fm_url")
     private String wiki_fm_url;
@@ -76,7 +71,9 @@ public class Wiki extends Model {
     @Column(name = "wiki_user_fav")
     private WikiUserFav wiki_user_fav;
 
-
+//    // 描述字段
+//    @Column(name = "wiki_meta")
+//    private List<WikiMeta> wiki_meta;
 
     public int getWiki_id() {
         return wiki_id;
@@ -148,14 +145,6 @@ public class Wiki extends Model {
 
     public void setWiki_modified_user(int wiki_modified_user) {
         this.wiki_modified_user = wiki_modified_user;
-    }
-
-    public List<WikiMeta> getWiki_meta() {
-        return wiki_meta;
-    }
-
-    public void setWiki_meta(List<WikiMeta> wiki_meta) {
-        this.wiki_meta = wiki_meta;
     }
 
     public String getWiki_fm_url() {

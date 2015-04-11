@@ -1,10 +1,12 @@
 package com.moefou.android.ui.home;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.moefou.android.Application;
+import com.moefou.android.Const;
 import com.moefou.android.R;
 import com.moefou.android.ui.BaseFragment;
 
@@ -20,8 +22,16 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
 
     public HomePagerAdapter(Fragment fragment) {
         super(fragment.getChildFragmentManager());
-        mFragments.add(new MusicFragment());
-        mFragments.add(new RadioFragment());
+        mFragments.add(getInstance(Const.RADIO));
+        mFragments.add(getInstance(Const.MUSIC));
+    }
+
+    private WikiFragment getInstance(String type){
+        WikiFragment radioFragment = new WikiFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("wiki_type", type);
+        radioFragment.setArguments(bundle);
+        return radioFragment;
     }
 
     @Override

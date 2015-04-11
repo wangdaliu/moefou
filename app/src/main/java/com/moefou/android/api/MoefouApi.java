@@ -24,6 +24,8 @@ public interface MoefouApi {
 
     @GET("/wikis.json")
     WikiResponse getWikiList(
-            @Query("wiki_type") String wikiType
+            @Query("wiki_type") String wikiType,
+            @Query("page") int page,
+            @Query("perpage") int perpage
     );
 }

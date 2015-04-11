@@ -1,19 +1,29 @@
 package com.moefou.android.task;
 
+import android.os.Handler;
+
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
+import com.moefou.android.Application;
+import com.moefou.android.Const;
 import com.moefou.android.api.MoefouManagerImpl;
 import com.moefou.android.event.BusProvider;
 import com.moefou.android.event.FetchWikiEvent;
 import com.moefou.android.object.wiki.Wiki;
-import com.moefou.android.object.wiki.WikiMeta;
 import com.moefou.android.object.wiki.WikiResponse;
 import com.moefou.android.util.SafeAsyncTask;
+import com.moefou.android.util.SharedPreferenceUtil;
 
 import java.util.List;
 
 
 public class FetchWikiTask extends SafeAsyncTask {
+
+    private static final int PERPAGE = 20;
+
+    private static final String RADIO_PAGE = "radio_page";
+
+    private static final String MUSIC_PAGE = "radio_page";
 
     private String mWikiType;
 
@@ -23,10 +33,28 @@ public class FetchWikiTask extends SafeAsyncTask {
 
     @Override
     public Object call() throws Exception {
-        WikiResponse wikiResponse = MoefouManagerImpl.getInstance().getWikiList(mWikiType);
-        List<Wiki> wikiList = wikiResponse.getResponse().getWikis();
+        final List<Wiki> wikiSavedList = new Select().from(Wiki.class).execute();
+        new Handler(Application.getInstance().getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                BusProvider.getInstance().post(new FetchWikiEvent(true, mWikiType, wikiSavedList));
+            }
+        });
 
-        List<Wiki> wikiSavedList = new Select().from(Wiki.class).execute();
+        int page = 1;
+        switch (mWikiType) {
+            case Const.RADIO:
+                page = SharedPreferenceUtil.getInt(Const.USER_INFO_FILE, RADIO_PAGE, 1);
+                break;
+            case Const.MUSIC:
+                page = SharedPreferenceUtil.getInt(Const.USER_INFO_FILE, MUSIC_PAGE, 1);
+                break;
+            default:
+                break;
+        }
+
+        WikiResponse wikiResponse = MoefouManagerImpl.getInstance().getWikiList(mWikiType, page, PERPAGE);
+        final List<Wiki> wikiList = wikiResponse.getResponse().getWikis();
 
         if (null == wikiList) {
             return null;
@@ -34,19 +62,11 @@ public class FetchWikiTask extends SafeAsyncTask {
         ActiveAndroid.beginTransaction();
         try {
             for (Wiki wiki : wikiList) {
-                if (isWikiExist(wiki.getWiki_id(), wikiSavedList)) {
-                    continue;
-                }
                 if (null != wiki.getWiki_cover()) {
                     wiki.getWiki_cover().save();
                 }
                 if (null != wiki.getWiki_user_fav()) {
                     wiki.getWiki_user_fav().save();
-                }
-                if (null != wiki.getWiki_meta()) {
-                    for (WikiMeta wikiMeta : wiki.getWiki_meta()) {
-                        wikiMeta.save();
-                    }
                 }
                 wiki.save();
             }
@@ -54,21 +74,24 @@ public class FetchWikiTask extends SafeAsyncTask {
         } finally {
             ActiveAndroid.endTransaction();
         }
-        return null;
-    }
 
-    @Override
-    protected void onFinally() throws RuntimeException {
-        super.onFinally();
-        BusProvider.getInstance().post(new FetchWikiEvent(mWikiType));
-    }
-
-    private boolean isWikiExist(long wikiId, List<Wiki> wikiSavedList) {
-        for (Wiki wiki : wikiSavedList) {
-            if (wiki.getWiki_id() == wikiId) {
-                return true;
-            }
+        switch (mWikiType) {
+            case Const.RADIO:
+                SharedPreferenceUtil.saveInt(Const.USER_INFO_FILE, RADIO_PAGE, page++);
+                break;
+            case Const.MUSIC:
+                SharedPreferenceUtil.saveInt(Const.USER_INFO_FILE, MUSIC_PAGE, page++);
+                break;
+            default:
+                break;
         }
-        return false;
+
+        new Handler(Application.getInstance().getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                BusProvider.getInstance().post(new FetchWikiEvent(false, mWikiType, wikiList));
+            }
+        });
+        return null;
     }
 }

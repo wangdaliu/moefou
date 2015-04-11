@@ -14,6 +14,6 @@ public interface MoefouManager {
 
     public UserResponse getUserByName(String userName);
 
-    public WikiResponse getWikiList(String wikiType);
+    public WikiResponse getWikiList(String wikiType, int page, int perpage);
 
 }

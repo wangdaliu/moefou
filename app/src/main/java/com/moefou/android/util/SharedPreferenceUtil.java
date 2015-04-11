@@ -29,4 +29,15 @@ public class SharedPreferenceUtil {
         SharedPreferences sp = Application.getInstance().getSharedPreferences(fileName, Context.MODE_PRIVATE);
         return sp.getString(key, "");
     }
+
+    public static void saveInt(String fileName, String key, int value) {
+        SharedPreferences sp = Application.getInstance().getSharedPreferences(fileName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(key, value).apply();
+    }
+
+    public static int getInt(String fileName, String key, int defaultValue) {
+        SharedPreferences sp = Application.getInstance().getSharedPreferences(fileName, Context.MODE_PRIVATE);
+        return sp.getInt(key, defaultValue);
+    }
 }

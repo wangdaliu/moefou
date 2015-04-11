@@ -1,14 +1,13 @@
 package com.moefou.android.object.user;
 
+import android.provider.BaseColumns;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "User")
+@Table(name = "User", id = BaseColumns._ID)
 public class User extends Model {
-
-    @Column(name = "_id")
-    private int id;
 
     // 用户id号
     @Column(name = "uid")

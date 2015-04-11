@@ -47,8 +47,8 @@ public class MoefouManagerImpl implements MoefouManager {
     }
 
     @Override
-    public WikiResponse getWikiList(String wikiType) {
-        MoefouApi api = RestClient.getService(MoefouApi.class, Verb.GET, "/wikis.json?wiki_type=" + wikiType);
-        return api.getWikiList(wikiType);
+    public WikiResponse getWikiList(String wikiType, int page, int perpage) {
+        MoefouApi api = RestClient.getService(MoefouApi.class, Verb.GET, "/wikis.json?wiki_type=" + wikiType + "&page=" + page + "&perpage=" + perpage);
+        return api.getWikiList(wikiType, page, perpage);
     }
 }

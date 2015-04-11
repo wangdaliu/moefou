@@ -1,14 +1,13 @@
 package com.moefou.android.object.user;
 
+import android.provider.BaseColumns;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "Icon")
+@Table(name = "Icon", id = BaseColumns._ID)
 public class Icon extends Model {
-
-    @Column(name = "_id")
-    private int id;
 
     // 48x48
     @Column(name = "small")

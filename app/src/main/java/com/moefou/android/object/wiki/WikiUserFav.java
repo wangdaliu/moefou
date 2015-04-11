@@ -1,14 +1,13 @@
 package com.moefou.android.object.wiki;
 
+import android.provider.BaseColumns;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "WikiUserFav")
+@Table(name = "WikiUserFav", id = BaseColumns._ID)
 public class WikiUserFav extends Model {
-
-    @Column(name = "_id")
-    private int id;
 
     @Column(name = "fav_id")
     private int fav_id;
