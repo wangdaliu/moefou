@@ -23,7 +23,7 @@ public class FetchWikiTask extends SafeAsyncTask {
 
     private static final String RADIO_PAGE = "radio_page";
 
-    private static final String MUSIC_PAGE = "radio_page";
+    private static final String MUSIC_PAGE = "music_page";
 
     private String mWikiType;
 
@@ -33,7 +33,7 @@ public class FetchWikiTask extends SafeAsyncTask {
 
     @Override
     public Object call() throws Exception {
-        final List<Wiki> wikiSavedList = new Select().from(Wiki.class).execute();
+        final List<Wiki> wikiSavedList = new Select().from(Wiki.class).where("wiki_type=?", mWikiType).execute();
         new Handler(Application.getInstance().getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -53,7 +53,7 @@ public class FetchWikiTask extends SafeAsyncTask {
                 break;
         }
 
-        WikiResponse wikiResponse = MoefouManagerImpl.getInstance().getWikiList(mWikiType, page, PERPAGE);
+        WikiResponse wikiResponse = MoefouManagerImpl.getInstance().getWikiList(mWikiType, page++, PERPAGE);
         final List<Wiki> wikiList = wikiResponse.getResponse().getWikis();
 
         if (null == wikiList) {

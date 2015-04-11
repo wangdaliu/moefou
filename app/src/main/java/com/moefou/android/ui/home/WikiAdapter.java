@@ -65,7 +65,7 @@ public class WikiAdapter extends BaseAdapter {
             viewHolder.icon.setImageResource(R.mipmap.cover_small);
         }
 
-        viewHolder.date.setText(TimeFormatUtil.formatTime(wiki.getWiki_date()));
+        viewHolder.date.setText(TimeFormatUtil.formatTime(wiki.getWiki_date() * 1000));
         viewHolder.name.setText(wiki.getWiki_title());
         return convertView;
     }

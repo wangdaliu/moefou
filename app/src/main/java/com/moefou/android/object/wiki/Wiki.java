@@ -15,10 +15,8 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-import java.util.List;
-
 @Table(name = "Wiki", id = BaseColumns._ID)
-public class Wiki extends Model {
+public class Wiki extends Model implements Comparable<Wiki> {
 
     // 条目id号
     @Column(name = "wiki_id")
@@ -177,5 +175,10 @@ public class Wiki extends Model {
 
     public void setWiki_user_fav(WikiUserFav wiki_user_fav) {
         this.wiki_user_fav = wiki_user_fav;
+    }
+
+    @Override
+    public int compareTo(Wiki another) {
+        return (int) (another.wiki_date - wiki_date);
     }
 }

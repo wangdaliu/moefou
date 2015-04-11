@@ -7,7 +7,7 @@ import java.util.Locale;
 public class TimeFormatUtil {
 
     public static String formatTime(long time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date(time));
     }
 }
