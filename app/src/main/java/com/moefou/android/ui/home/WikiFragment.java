@@ -64,7 +64,11 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
 
         setupRefreshLayout();
 
-        new FetchWikiTask(mWikiType).execute();
+        fetchData(false);
+    }
+
+    private void fetchData(boolean reload){
+        new FetchWikiTask(mWikiType, reload).execute();
     }
 
     @Override
@@ -109,15 +113,15 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
             return;
         }
 
-
-        stopRefreshing();
+        getLoaderManager().restartLoader(0, null, this);
     }
 
     @Override
     public void onRefresh() {
         if (isOnline()) {
             if (isAdded()) {
-                getLoaderManager().restartLoader(0, null, this);
+                startRefreshing();
+                fetchData(true);
             }
         } else {
             stopRefreshing();
@@ -132,6 +136,7 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         mAdapter.swapCursor(cursor);
+        stopRefreshing();
     }
 
     @Override

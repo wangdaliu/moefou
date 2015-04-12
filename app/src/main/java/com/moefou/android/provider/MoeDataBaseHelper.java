@@ -14,6 +14,38 @@ public class MoeDataBaseHelper extends SQLiteOpenHelper {
 
     private static MoeDataBaseHelper mSingleton = null;
 
+    private static final String delete_wiki_cover_trigger = "CREATE TRIGGER delete_wiki_cover_trigger AFTER DELETE ON "
+            + TWiki.TABLE_NAME
+            + " for each row BEGIN "
+            + " DELETE FROM "
+            + TWikiCover.TABLE_NAME
+            + " WHERE "
+            + TWikiCover.FK_WIKI + "=OLD." + TWiki.ID + "; END;";
+
+    private static final String delete_wiki_meta_trigger = "CREATE TRIGGER delete_wiki_meta_trigger AFTER DELETE ON "
+            + TWiki.TABLE_NAME
+            + " for each row BEGIN "
+            + " DELETE FROM "
+            + TWikiMeta.TABLE_NAME
+            + " WHERE "
+            + TWikiMeta.FK_WIKI + "=OLD." + TWiki.ID + "; END;";
+
+    private static final String delete_wiki_user_fav_trigger = "CREATE TRIGGER delete_wiki_user_fav_trigger AFTER DELETE ON "
+            + TWiki.TABLE_NAME
+            + " for each row BEGIN "
+            + " DELETE FROM "
+            + TWikiUserFav.TABLE_NAME
+            + " WHERE "
+            + TWikiUserFav.FK_WIKI + "=OLD." + TWiki.ID + "; END;";
+
+    private static final String delete_icon_trigger = "CREATE TRIGGER delete_icon_trigger AFTER DELETE ON "
+            + TUser.TABLE_NAME
+            + " for each row BEGIN "
+            + " DELETE FROM "
+            + TIcon.TABLE_NAME
+            + " WHERE "
+            + TIcon.FK_USER + "=OLD." + TUser.ID + "; END;";
+
     private MoeDataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -38,6 +70,11 @@ public class MoeDataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(TWikiCover.CREATE_TABLE_SQL);
         db.execSQL(TWikiMeta.CREATE_TABLE_SQL);
         db.execSQL(TWikiUserFav.CREATE_TABLE_SQL);
+
+        db.execSQL(delete_wiki_cover_trigger);
+        db.execSQL(delete_wiki_meta_trigger);
+        db.execSQL(delete_wiki_user_fav_trigger);
+        db.execSQL(delete_icon_trigger);
     }
 
     @Override

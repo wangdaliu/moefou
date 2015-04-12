@@ -5,6 +5,7 @@ import com.moefou.android.api.MoefouManagerImpl;
 import com.moefou.android.core.WikiManager;
 import com.moefou.android.event.BusProvider;
 import com.moefou.android.event.FetchWikiEvent;
+import com.moefou.android.object.wiki.Wiki;
 import com.moefou.android.object.wiki.WikiResponse;
 import com.moefou.android.util.SafeAsyncTask;
 import com.moefou.android.util.SharedPreferenceUtil;
@@ -20,8 +21,11 @@ public class FetchWikiTask extends SafeAsyncTask {
 
     private String mWikiType;
 
-    public FetchWikiTask(String wikiType) {
+    private boolean mReload;
+
+    public FetchWikiTask(String wikiType, boolean reload) {
         mWikiType = wikiType;
+        mReload = reload;
     }
 
     @Override
@@ -42,6 +46,11 @@ public class FetchWikiTask extends SafeAsyncTask {
         if (null == wikiResponse || null == wikiResponse.getResponse().getWikis()) {
             return null;
         }
+
+        if (mReload) {
+            WikiManager.getInstance().removeWiki(mWikiType);
+        }
+
         WikiManager.getInstance().saveWikiList(wikiResponse.getResponse().getWikis());
 
         switch (mWikiType) {

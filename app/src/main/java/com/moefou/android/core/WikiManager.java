@@ -150,4 +150,9 @@ public class WikiManager {
         }
         return wikiMetas;
     }
+
+    public void removeWiki(String type) {
+        String where = "wiki_type='" + type + "'";
+        resolver.delete(TWikiUserFav.CONTENT_URI, where, null);
+    }
 }

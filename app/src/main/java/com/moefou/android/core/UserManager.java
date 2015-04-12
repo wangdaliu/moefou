@@ -30,7 +30,6 @@ public class UserManager {
 
     public void deleteCurrentUser() {
         ContentResolver resolver = Application.getInstance().getContentResolver();
-        resolver.delete(TIcon.CONTENT_URI, null, null);
         resolver.delete(TUser.CONTENT_URI, null, null);
     }
 
