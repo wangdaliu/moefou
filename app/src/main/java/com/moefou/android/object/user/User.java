@@ -1,64 +1,49 @@
 package com.moefou.android.object.user;
 
-import android.provider.BaseColumns;
+import android.content.ContentValues;
+import android.database.Cursor;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import com.moefou.android.provider.MoeTables.TUser;
 
-@Table(name = "User", id = BaseColumns._ID)
-public class User extends Model {
+public class User {
 
     // 用户id号
-    @Column(name = "uid")
     private int uid;
 
     // 用户名（登录名）
-    @Column(name = "user_name")
     private String user_name;
 
     // 昵称
-    @Column(name = "user_nickname")
     private String user_nickname;
 
     // 注册时间
-    @Column(name = "user_registered")
     private long user_registered;
 
     // 上次活跃时间
-    @Column(name = "user_lastactivity")
     private long user_lastactivity;
 
     // 主站中的个人主页
-    @Column(name = "user_url")
     private String user_url;
 
     // 电台中的个人主页
-    @Column(name = "user_fm_url")
     private String user_fm_url;
 
     // 头像，分为小中大三种尺寸
-    @Column(name = "user_avatar")
     private Icon user_avatar;
 
     // 参加的小组，按加入时间排列
-    @Column(name = "groups")
     private String groups;
 
     // 粉丝们的uid
-    @Column(name = "follower")
     private String follower;
 
     // 好友们的uid
-    @Column(name = "following")
     private String following;
 
     // 萌邮未读数
-    @Column(name = "msg")
     private String msg;
 
     // 个人介绍
-    @Column(name = "about")
     private String about;
 
     public int getUid() {
@@ -163,5 +148,41 @@ public class User extends Model {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public User() {
+    }
+
+    public User(Cursor cursor) {
+        this.uid = cursor.getInt(cursor.getColumnIndex(TUser.UID));
+        this.user_name = cursor.getString(cursor.getColumnIndex(TUser.USER_NAME));
+        this.user_nickname = cursor.getString(cursor.getColumnIndex(TUser.USER_NICKNAME));
+        this.user_registered = cursor.getLong(cursor.getColumnIndex(TUser.USER_REGISTERED));
+        this.user_lastactivity = cursor.getLong(cursor.getColumnIndex(TUser.USER_LAST_ACTIVITY));
+        this.user_url = cursor.getString(cursor.getColumnIndex(TUser.USER_URL));
+        this.user_url = cursor.getString(cursor.getColumnIndex(TUser.USER_URL));
+        this.user_fm_url = cursor.getString(cursor.getColumnIndex(TUser.USER_FM_URL));
+        this.groups = cursor.getString(cursor.getColumnIndex(TUser.GROUPS));
+        this.follower = cursor.getString(cursor.getColumnIndex(TUser.FOLLOWER));
+        this.following = cursor.getString(cursor.getColumnIndex(TUser.FOLLOWING));
+        this.msg = cursor.getString(cursor.getColumnIndex(TUser.MSG));
+        this.about = cursor.getString(cursor.getColumnIndex(TUser.ABOUT));
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(TUser.UID, uid);
+        values.put(TUser.USER_NAME, user_name);
+        values.put(TUser.USER_NICKNAME, user_nickname);
+        values.put(TUser.USER_REGISTERED, user_registered);
+        values.put(TUser.USER_LAST_ACTIVITY, user_lastactivity);
+        values.put(TUser.USER_URL, user_url);
+        values.put(TUser.USER_FM_URL, user_fm_url);
+        values.put(TUser.GROUPS, groups);
+        values.put(TUser.FOLLOWER, follower);
+        values.put(TUser.FOLLOWING, following);
+        values.put(TUser.MSG, msg);
+        values.put(TUser.ABOUT, about);
+        return values;
     }
 }

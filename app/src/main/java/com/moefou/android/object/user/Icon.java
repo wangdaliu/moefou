@@ -1,28 +1,33 @@
 package com.moefou.android.object.user;
 
-import android.provider.BaseColumns;
+import android.content.ContentValues;
+import android.database.Cursor;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import com.moefou.android.provider.MoeTables.*;
 
-@Table(name = "Icon", id = BaseColumns._ID)
-public class Icon extends Model {
+public class Icon {
+
+    private long fkUserId;
 
     // 48x48
-    @Column(name = "small")
     private String small;
 
     // 120x120，有些旧版头像无此尺寸，会默认使用large尺寸
-    @Column(name = "medium")
     private String medium;
 
     // 204x204
-    @Column(name = "large")
     private String large;
 
     public String getSmall() {
         return small;
+    }
+
+    public long getFkUserId() {
+        return fkUserId;
+    }
+
+    public void setFkUserId(long fkUserId) {
+        this.fkUserId = fkUserId;
     }
 
     public void setSmall(String small) {
@@ -43,5 +48,25 @@ public class Icon extends Model {
 
     public void setLarge(String large) {
         this.large = large;
+    }
+
+
+    public Icon() {
+    }
+
+    public Icon(Cursor cursor) {
+        this.fkUserId = cursor.getLong(cursor.getColumnIndex(TIcon.FK_USER));
+        this.small = cursor.getString(cursor.getColumnIndex(TIcon.SMALL));
+        this.medium = cursor.getString(cursor.getColumnIndex(TIcon.MEDIUM));
+        this.large = cursor.getString(cursor.getColumnIndex(TIcon.LARGE));
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(TIcon.SMALL, small);
+        values.put(TIcon.MEDIUM, medium);
+        values.put(TIcon.LARGE, large);
+        values.put(TIcon.FK_USER, fkUserId);
+        return values;
     }
 }

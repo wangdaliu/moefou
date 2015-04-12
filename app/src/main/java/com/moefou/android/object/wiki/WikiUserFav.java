@@ -1,31 +1,33 @@
 package com.moefou.android.object.wiki;
 
-import android.provider.BaseColumns;
+import android.content.ContentValues;
+import android.database.Cursor;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import com.moefou.android.provider.MoeTables.*;
 
-@Table(name = "WikiUserFav", id = BaseColumns._ID)
-public class WikiUserFav extends Model {
+public class WikiUserFav {
 
-    @Column(name = "fav_id")
+    private long fkWikiId;
+
     private int fav_id;
 
-    @Column(name = "fav_obj_id")
     private int fav_obj_id;
 
-    @Column(name = "fav_obj_type")
     private String fav_obj_type;
 
-    @Column(name = "fav_uid")
     private int fav_uid;
 
-    @Column(name = "fav_date")
     private long fav_date;
 
-    @Column(name = "fav_type")
     private int fav_type;
+
+    public long getFkWikiId() {
+        return fkWikiId;
+    }
+
+    public void setFkWikiId(long fkWikiId) {
+        this.fkWikiId = fkWikiId;
+    }
 
     public int getFav_id() {
         return fav_id;
@@ -73,5 +75,30 @@ public class WikiUserFav extends Model {
 
     public void setFav_type(int fav_type) {
         this.fav_type = fav_type;
+    }
+
+    public WikiUserFav() {
+    }
+
+    public WikiUserFav(Cursor cursor) {
+        this.fkWikiId = cursor.getLong(cursor.getColumnIndex(TWikiUserFav.FK_WIKI));
+        this.fav_id = cursor.getInt(cursor.getColumnIndex(TWikiUserFav.FAV_ID));
+        this.fav_obj_id = cursor.getInt(cursor.getColumnIndex(TWikiUserFav.FAV_OBJ_ID));
+        this.fav_obj_type = cursor.getString(cursor.getColumnIndex(TWikiUserFav.FAV_OBJ_TYPE));
+        this.fav_uid = cursor.getInt(cursor.getColumnIndex(TWikiUserFav.FAV_UID));
+        this.fav_date = cursor.getLong(cursor.getColumnIndex(TWikiUserFav.FAV_DATE));
+        this.fav_type = cursor.getInt(cursor.getColumnIndex(TWikiUserFav.FAV_TYPE));
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(TWikiUserFav.FAV_ID, fav_id);
+        values.put(TWikiUserFav.FAV_OBJ_ID, fav_obj_id);
+        values.put(TWikiUserFav.FAV_OBJ_TYPE, fav_obj_type);
+        values.put(TWikiUserFav.FAV_UID, fav_uid);
+        values.put(TWikiUserFav.FAV_DATE, fav_date);
+        values.put(TWikiUserFav.FAV_TYPE, fav_type);
+        values.put(TWikiUserFav.FK_WIKI, fkWikiId);
+        return values;
     }
 }

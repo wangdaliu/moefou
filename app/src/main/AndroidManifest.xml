@@ -25,21 +25,14 @@
             android:name=".ui.HomeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"></activity>
 
-
-        <meta-data
-            android:name="AA_DB_NAME"
-            android:value="moe.db"/>
-        <meta-data
-            android:name="AA_DB_VERSION"
-            android:value="1"/>
-
         <provider
             android:authorities="com.moefou.android"
-            android:exported="false"
-            android:name="com.activeandroid.content.ContentProvider"/>
+            android:exported="true"
+            android:name=".provider.MoeProvider">
+        </provider>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 </manifest>

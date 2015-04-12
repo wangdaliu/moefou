@@ -1,3 +1,2 @@
-include ':app', ':scribe', ':ActiveAndroid'
+include ':app', ':scribe'
 project(':scribe').projectDir = new File('vendor/scribe')
-project(':ActiveAndroid').projectDir = new File('vendor/ActiveAndroid')

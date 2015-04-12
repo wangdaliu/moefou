@@ -2,11 +2,10 @@ package com.moefou.android.task;
 
 import android.os.Handler;
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.query.Select;
 import com.moefou.android.Application;
 import com.moefou.android.Const;
 import com.moefou.android.api.MoefouManagerImpl;
+import com.moefou.android.core.WikiManager;
 import com.moefou.android.event.BusProvider;
 import com.moefou.android.event.FetchWikiEvent;
 import com.moefou.android.object.wiki.Wiki;
@@ -33,7 +32,7 @@ public class FetchWikiTask extends SafeAsyncTask {
 
     @Override
     public Object call() throws Exception {
-        final List<Wiki> wikiSavedList = new Select().from(Wiki.class).where("wiki_type=?", mWikiType).execute();
+        final List<Wiki> wikiSavedList = WikiManager.getInstance().getWikisByType(mWikiType);
         new Handler(Application.getInstance().getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -59,21 +58,7 @@ public class FetchWikiTask extends SafeAsyncTask {
         if (null == wikiList) {
             return null;
         }
-        ActiveAndroid.beginTransaction();
-        try {
-            for (Wiki wiki : wikiList) {
-                if (null != wiki.getWiki_cover()) {
-                    wiki.getWiki_cover().save();
-                }
-                if (null != wiki.getWiki_user_fav()) {
-                    wiki.getWiki_user_fav().save();
-                }
-                wiki.save();
-            }
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
+        WikiManager.getInstance().saveWikiList(wikiList);
 
         switch (mWikiType) {
             case Const.RADIO:

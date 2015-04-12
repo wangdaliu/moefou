@@ -9,69 +9,65 @@
 //        radio	音乐电台
 package com.moefou.android.object.wiki;
 
-import android.provider.BaseColumns;
+import android.content.ContentValues;
+import android.database.Cursor;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import com.moefou.android.provider.MoeTables.TWiki;
 
-@Table(name = "Wiki", id = BaseColumns._ID)
-public class Wiki extends Model implements Comparable<Wiki> {
+import java.util.List;
+
+public class Wiki implements Comparable<Wiki> {
+
+    private long id = -1;
 
     // 条目id号
-    @Column(name = "wiki_id")
     private int wiki_id;
 
     // 标题
-    @Column(name = "wiki_title")
     private String wiki_title;
 
     // 标题拼音
-    @Column(name = "wiki_title_encode")
     private String wiki_title_encode;
 
     // 别名
-    @Column(name = "wiki_name")
     private String wiki_name;
 
     // 条目类型
-    @Column(name = "wiki_type")
     private String wiki_type;
 
     // 父级条目，当前系统中不启用
-    @Column(name = "wiki_parent")
     private int wiki_parent;
 
     // 上映/发售等日期
-    @Column(name = "wiki_date")
     private long wiki_date;
 
     // 最后修改时间
-    @Column(name = "wiki_modified")
     private long wiki_modified;
 
     // 最后修改的用户
-    @Column(name = "wiki_modified_user")
     private int wiki_modified_user;
 
     // 电台中的地址
-    @Column(name = "wiki_fm_url")
     private String wiki_fm_url;
 
     // 主站中的地址
-    @Column(name = "wiki_url")
     private String wiki_url;
 
     // 条目封面，分有各种尺寸
-    @Column(name = "wiki_cover")
     private WikiCover wiki_cover;
 
-    @Column(name = "wiki_user_fav")
     private WikiUserFav wiki_user_fav;
 
-//    // 描述字段
-//    @Column(name = "wiki_meta")
-//    private List<WikiMeta> wiki_meta;
+    // 描述字段
+    private List<WikiMeta> wiki_meta;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public int getWiki_id() {
         return wiki_id;
@@ -177,8 +173,50 @@ public class Wiki extends Model implements Comparable<Wiki> {
         this.wiki_user_fav = wiki_user_fav;
     }
 
+    public List<WikiMeta> getWiki_meta() {
+        return wiki_meta;
+    }
+
+    public void setWiki_meta(List<WikiMeta> wiki_meta) {
+        this.wiki_meta = wiki_meta;
+    }
+
     @Override
     public int compareTo(Wiki another) {
         return (int) (another.wiki_date - wiki_date);
+    }
+
+    public Wiki() {
+    }
+
+    public Wiki(Cursor cursor) {
+        this.id = cursor.getLong(cursor.getColumnIndex(TWiki.ID));
+        this.wiki_id = cursor.getInt(cursor.getColumnIndex(TWiki.WIKI_ID));
+        this.wiki_title = cursor.getString(cursor.getColumnIndex(TWiki.WIKI_TITLE));
+        this.wiki_title_encode = cursor.getString(cursor.getColumnIndex(TWiki.WIKI_TITLE_ENCODE));
+        this.wiki_name = cursor.getString(cursor.getColumnIndex(TWiki.WIKI_NAME));
+        this.wiki_type = cursor.getString(cursor.getColumnIndex(TWiki.WIKI_TYPE));
+        this.wiki_parent = cursor.getInt(cursor.getColumnIndex(TWiki.WIKI_PARENT));
+        this.wiki_date = cursor.getLong(cursor.getColumnIndex(TWiki.WIKI_DATE));
+        this.wiki_modified = cursor.getLong(cursor.getColumnIndex(TWiki.WIKI_MODIFIED));
+        this.wiki_modified_user = cursor.getInt(cursor.getColumnIndex(TWiki.WIKI_MODIFIED_USER));
+        this.wiki_fm_url = cursor.getString(cursor.getColumnIndex(TWiki.WIKI_FM_URL));
+        this.wiki_url = cursor.getString(cursor.getColumnIndex(TWiki.WIKI_URL));
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(TWiki.WIKI_ID, wiki_id);
+        values.put(TWiki.WIKI_TITLE, wiki_title);
+        values.put(TWiki.WIKI_TITLE_ENCODE, wiki_title_encode);
+        values.put(TWiki.WIKI_NAME, wiki_name);
+        values.put(TWiki.WIKI_TYPE, wiki_type);
+        values.put(TWiki.WIKI_PARENT, wiki_parent);
+        values.put(TWiki.WIKI_DATE, wiki_date);
+        values.put(TWiki.WIKI_MODIFIED, wiki_modified);
+        values.put(TWiki.WIKI_MODIFIED_USER, wiki_modified_user);
+        values.put(TWiki.WIKI_FM_URL, wiki_fm_url);
+        values.put(TWiki.WIKI_URL, wiki_url);
+        return values;
     }
 }

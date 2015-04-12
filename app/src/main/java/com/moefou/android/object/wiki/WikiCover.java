@@ -1,30 +1,33 @@
 package com.moefou.android.object.wiki;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 
-import android.provider.BaseColumns;
+import com.moefou.android.provider.MoeTables.*;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+public class WikiCover {
 
-@Table(name = "WikiCover", id = BaseColumns._ID)
-public class WikiCover extends Model {
+    private long fkWikiId;
 
     // 96x96
-    @Column(name = "small")
     private String small;
 
     // 144x192
-    @Column(name = "medium")
     private String medium;
 
     // 192x192
-    @Column(name = "square")
     private String square;
 
     // 原始尺寸
-    @Column(name = "large")
     private String large;
+
+    public long getFkWikiId() {
+        return fkWikiId;
+    }
+
+    public void setFkWikiId(long fkWikiId) {
+        this.fkWikiId = fkWikiId;
+    }
 
     public String getSmall() {
         return small;
@@ -56,5 +59,27 @@ public class WikiCover extends Model {
 
     public void setLarge(String large) {
         this.large = large;
+    }
+
+
+    public WikiCover() {
+    }
+
+    public WikiCover(Cursor cursor) {
+        this.fkWikiId = cursor.getLong(cursor.getColumnIndex(TWikiCover.FK_WIKI));
+        this.small = cursor.getString(cursor.getColumnIndex(TWikiCover.SMALL));
+        this.medium = cursor.getString(cursor.getColumnIndex(TWikiCover.MEDIUM));
+        this.square = cursor.getString(cursor.getColumnIndex(TWikiCover.SQUARE));
+        this.large = cursor.getString(cursor.getColumnIndex(TWikiCover.LARGE));
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(TWikiCover.SMALL, small);
+        values.put(TWikiCover.MEDIUM, medium);
+        values.put(TWikiCover.SQUARE, square);
+        values.put(TWikiCover.LARGE, large);
+        values.put(TWikiCover.FK_WIKI, fkWikiId);
+        return values;
     }
 }

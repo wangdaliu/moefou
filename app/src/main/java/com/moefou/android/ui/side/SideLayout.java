@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.activeandroid.query.Select;
 import com.moefou.android.R;
+import com.moefou.android.core.UserManager;
 import com.moefou.android.object.user.User;
 import com.moefou.android.ui.views.font.TypefaceTextView;
 import com.squareup.picasso.Picasso;
@@ -39,7 +39,7 @@ public class SideLayout extends LinearLayout {
 
 
     public void updatepProfile() {
-        User user = new Select().from(User.class).executeSingle();
+        User user = UserManager.getInstance().getCurrentUser();
         if (null == user) {
             return;
         }
