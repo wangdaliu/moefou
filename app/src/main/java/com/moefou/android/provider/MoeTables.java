@@ -9,6 +9,44 @@ public class MoeTables {
 
     public static final String AUTHORITY = "com.moefou.android";
 
+    public static class TWikiJoinTWikiCover {
+        public static final String TABLE_NAME = TWiki.TABLE_NAME
+                + " LEFT JOIN "
+                + TWikiCover.TABLE_NAME
+                + " ON (T_WIKI._ID = T_WIKI_COVER.FK_WIKI)";
+
+        public static final String WIKI_JOIN_WIKICOVER = "WIKI_JOIN_WIKICOVER";
+
+        public static final String WIKI_ID = "T_WIKI._ID";
+
+        public static final String WIKI_TITLE = "T_WIKI.wiki_title";
+
+        public static final String WIKI_TYPE = "T_WIKI.wiki_type";
+
+        public static final String WIKI_DATE = "T_WIKI.wiki_date";
+
+        public static final String WIKI_MODIFIED = "T_WIKI.wiki_modified";
+
+        public static final String WIKI_COVER_SMALL = "T_WIKI_COVER.small";
+
+        public static final Uri CONTENT_URI_WIKI_JOIN_COVER = Uri.parse("content://"
+                + AUTHORITY + "/" + WIKI_JOIN_WIKICOVER);
+
+        public static final String DEFAULT_SORT_ORDER = WIKI_DATE + " desc";
+
+        public static HashMap<String, String> projectionMap = new HashMap<String, String>();
+
+        static {
+            projectionMap.put(WIKI_ID, WIKI_ID);
+            projectionMap.put(WIKI_TITLE, WIKI_TITLE);
+            projectionMap.put(WIKI_TYPE, WIKI_TYPE);
+            projectionMap.put(WIKI_DATE, WIKI_DATE);
+            projectionMap.put(WIKI_MODIFIED, WIKI_MODIFIED);
+            projectionMap.put(WIKI_COVER_SMALL, WIKI_COVER_SMALL);
+        }
+    }
+
+
     public static class TUser {
         public static final String TABLE_NAME = "T_USER";
 

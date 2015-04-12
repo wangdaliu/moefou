@@ -1,19 +1,13 @@
 package com.moefou.android.task;
 
-import android.os.Handler;
-
-import com.moefou.android.Application;
 import com.moefou.android.Const;
 import com.moefou.android.api.MoefouManagerImpl;
 import com.moefou.android.core.WikiManager;
 import com.moefou.android.event.BusProvider;
 import com.moefou.android.event.FetchWikiEvent;
-import com.moefou.android.object.wiki.Wiki;
 import com.moefou.android.object.wiki.WikiResponse;
 import com.moefou.android.util.SafeAsyncTask;
 import com.moefou.android.util.SharedPreferenceUtil;
-
-import java.util.List;
 
 
 public class FetchWikiTask extends SafeAsyncTask {
@@ -32,14 +26,6 @@ public class FetchWikiTask extends SafeAsyncTask {
 
     @Override
     public Object call() throws Exception {
-        final List<Wiki> wikiSavedList = WikiManager.getInstance().getWikisByType(mWikiType);
-        new Handler(Application.getInstance().getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                BusProvider.getInstance().post(new FetchWikiEvent(true, mWikiType, wikiSavedList));
-            }
-        });
-
         int page = 1;
         switch (mWikiType) {
             case Const.RADIO:
@@ -53,12 +39,10 @@ public class FetchWikiTask extends SafeAsyncTask {
         }
 
         WikiResponse wikiResponse = MoefouManagerImpl.getInstance().getWikiList(mWikiType, page++, PERPAGE);
-        final List<Wiki> wikiList = wikiResponse.getResponse().getWikis();
-
-        if (null == wikiList) {
+        if (null == wikiResponse || null == wikiResponse.getResponse().getWikis()) {
             return null;
         }
-        WikiManager.getInstance().saveWikiList(wikiList);
+        WikiManager.getInstance().saveWikiList(wikiResponse.getResponse().getWikis());
 
         switch (mWikiType) {
             case Const.RADIO:
@@ -70,13 +54,12 @@ public class FetchWikiTask extends SafeAsyncTask {
             default:
                 break;
         }
-
-        new Handler(Application.getInstance().getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                BusProvider.getInstance().post(new FetchWikiEvent(false, mWikiType, wikiList));
-            }
-        });
         return null;
+    }
+
+    @Override
+    protected void onFinally() throws RuntimeException {
+        super.onFinally();
+        BusProvider.getInstance().post(new FetchWikiEvent(false, mWikiType));
     }
 }

@@ -1,7 +1,11 @@
 package com.moefou.android.ui.home;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,21 +16,16 @@ import android.widget.ListView;
 import com.moefou.android.R;
 import com.moefou.android.event.BusProvider;
 import com.moefou.android.event.FetchWikiEvent;
-import com.moefou.android.object.wiki.Wiki;
+import com.moefou.android.provider.MoeTables.TWikiJoinTWikiCover;
 import com.moefou.android.task.FetchWikiTask;
 import com.moefou.android.ui.BaseFragment;
 import com.squareup.otto.Subscribe;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-public class WikiFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private WikiAdapter mAdapter;
     private ListView mListView;
     private String mWikiType;
-    private List<Wiki> mWikiList = new ArrayList<Wiki>();
     private SwipeRefreshLayout mRefreshLayout;
     private int mRefreshViewOffset;
 
@@ -57,15 +56,27 @@ public class WikiFragment extends BaseFragment implements AdapterView.OnItemClic
 
         mListView = (ListView) view.findViewById(R.id.list);
         // Set up our adapter
-        mAdapter = new WikiAdapter(getActivity(), mWikiList);
+        mAdapter = new WikiAdapter(getActivity(), R.layout.wiki_item, null);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
 
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
 
         setupRefreshLayout();
+
+        new FetchWikiTask(mWikiType).execute();
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getLoaderManager().getLoader(0) == null) {
+            getLoaderManager().initLoader(0, null, this);
+        } else {
+            getLoaderManager().restartLoader(0, null, this);
+        }
+        startRefreshing();
+    }
 
     protected void setupRefreshLayout() {
         mRefreshLayout.setColorSchemeResources(R.color.actionbar_color, R.color.statusbar_color);
@@ -88,13 +99,6 @@ public class WikiFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        new FetchWikiTask(mWikiType).execute();
-        startRefreshing();
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
@@ -105,25 +109,33 @@ public class WikiFragment extends BaseFragment implements AdapterView.OnItemClic
             return;
         }
 
-        if (event.isInit()) {
-            if (mWikiList.isEmpty()) {
-                mWikiList.addAll(event.getWikiList());
-            }
-        } else {
-            mWikiList.addAll(event.getWikiList());
-        }
-        Collections.sort(mWikiList);
-        mAdapter.notifyDataSetChanged();
+
         stopRefreshing();
     }
 
     @Override
     public void onRefresh() {
         if (isOnline()) {
-
-
+            if (isAdded()) {
+                getLoaderManager().restartLoader(0, null, this);
+            }
         } else {
             stopRefreshing();
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), TWikiJoinTWikiCover.CONTENT_URI_WIKI_JOIN_COVER, null, TWikiJoinTWikiCover.WIKI_TYPE + " = '" + mWikiType + "'", null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mAdapter.swapCursor(null);
     }
 }

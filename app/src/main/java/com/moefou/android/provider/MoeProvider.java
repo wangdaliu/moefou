@@ -17,6 +17,7 @@ import com.moefou.android.provider.MoeTables.TWiki;
 import com.moefou.android.provider.MoeTables.TWikiCover;
 import com.moefou.android.provider.MoeTables.TWikiMeta;
 import com.moefou.android.provider.MoeTables.TWikiUserFav;
+import com.moefou.android.provider.MoeTables.TWikiJoinTWikiCover;
 
 public class MoeProvider extends ContentProvider {
 
@@ -47,6 +48,8 @@ public class MoeProvider extends ContentProvider {
 
     private static final int WIKI_USERFAV_ID = 12;
 
+    private static final int WIKI_WITH_WIKICOVER = 13;
+
     //define the uri matcher
     private static UriMatcher matcher;
 
@@ -70,6 +73,7 @@ public class MoeProvider extends ContentProvider {
         matcher.addURI(MoeTables.AUTHORITY, TWikiUserFav.TABLE_NAME, WIKI_USERFAV);
         matcher.addURI(MoeTables.AUTHORITY, TWikiUserFav.TABLE_NAME + "/#", WIKI_USERFAV_ID);
 
+        matcher.addURI(MoeTables.AUTHORITY, TWikiJoinTWikiCover.WIKI_JOIN_WIKICOVER, WIKI_WITH_WIKICOVER);
     }
 
     public static SQLiteOpenHelper getSQLiteOpenHelper() {
@@ -140,6 +144,10 @@ public class MoeProvider extends ContentProvider {
                 qb.setProjectionMap(TWikiUserFav.projectionMap);
                 qb.appendWhere(TWikiUserFav.ID + "=" + uri.getPathSegments().get(1));
                 break;
+            case WIKI_WITH_WIKICOVER:
+                qb.setTables(TWikiJoinTWikiCover.TABLE_NAME);
+                qb.setProjectionMap(TWikiJoinTWikiCover.projectionMap);
+                break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);
         }
@@ -190,6 +198,9 @@ public class MoeProvider extends ContentProvider {
                 break;
             case WIKI_USERFAV:
                 tableName = TWikiUserFav.TABLE_NAME;
+                break;
+            case WIKI_WITH_WIKICOVER:
+                tableName = TWikiJoinTWikiCover.TABLE_NAME;
                 break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);
@@ -363,6 +374,9 @@ public class MoeProvider extends ContentProvider {
             case WIKI_USERFAV:
             case WIKI_USERFAV_ID:
                 newOrder = TWikiUserFav.DEFAULT_SORT_ORDER;
+                break;
+            case WIKI_WITH_WIKICOVER:
+                newOrder = TWikiJoinTWikiCover.DEFAULT_SORT_ORDER;
                 break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);

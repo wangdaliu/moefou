@@ -1,75 +1,53 @@
 package com.moefou.android.ui.home;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ResourceCursorAdapter;
 
 import com.moefou.android.R;
-import com.moefou.android.object.wiki.Wiki;
+import com.moefou.android.provider.MoeTables.*;
 import com.moefou.android.ui.views.font.TypefaceTextView;
 import com.moefou.android.util.TimeFormatUtil;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
+public class WikiAdapter extends ResourceCursorAdapter {
 
-public class WikiAdapter extends BaseAdapter {
-
-    private Context mContext;
-    private List<Wiki> mWikiList = new ArrayList<Wiki>();
-
-    public WikiAdapter(Context context, List<Wiki> wikiList) {
-        mContext = context;
-        mWikiList = wikiList;
+    public WikiAdapter(Context context, int layout, Cursor c) {
+        super(context, layout, c, false);
     }
 
     @Override
-    public int getCount() {
-        return mWikiList.size();
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        View view = super.newView(context, cursor, parent);
+        ViewHolder holder = new ViewHolder();
+        holder.icon = (ImageView) view.findViewById(R.id.icon);
+        holder.name = (TypefaceTextView) view.findViewById(R.id.name);
+        holder.date = (TypefaceTextView) view.findViewById(R.id.date);
+        view.setTag(holder);
+        return view;
     }
 
     @Override
-    public Object getItem(int position) {
-        return mWikiList.get(position);
-    }
+    public void bindView(View view, Context context, Cursor cursor) {
+        ViewHolder holder = (ViewHolder) view.getTag();
+        String title = cursor.getString(cursor.getColumnIndex(TWiki.WIKI_TITLE));
+        long date = cursor.getLong(cursor.getColumnIndex(TWiki.WIKI_DATE));
+        String cover = cursor.getString(cursor.getColumnIndex(TWikiCover.SMALL));
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        if (null == convertView) {
-            viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.wiki_item, null);
-            viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
-            viewHolder.name = (TypefaceTextView) convertView.findViewById(R.id.name);
-            viewHolder.date = (TypefaceTextView) convertView.findViewById(R.id.date);
-
-            convertView.setTag(viewHolder);
+        if (!TextUtils.isEmpty(cover)) {
+            Picasso.with(context).load(Uri.parse(cover)).into(holder.icon);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            holder.icon.setImageResource(R.mipmap.cover_small);
         }
 
-        Wiki wiki = mWikiList.get(position);
-
-        if (null != wiki.getWiki_cover()) {
-            Picasso.with(mContext).load(Uri.parse(wiki.getWiki_cover().getSmall())).into(viewHolder.icon);
-        } else {
-            viewHolder.icon.setImageResource(R.mipmap.cover_small);
-        }
-
-        viewHolder.date.setText(TimeFormatUtil.formatTime(wiki.getWiki_date() * 1000));
-        viewHolder.name.setText(wiki.getWiki_title());
-        return convertView;
+        holder.date.setText(TimeFormatUtil.formatTime(date * 1000));
+        holder.name.setText(title);
     }
-
 
     private final class ViewHolder {
         ImageView icon;
