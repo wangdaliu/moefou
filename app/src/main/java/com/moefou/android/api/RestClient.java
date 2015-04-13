@@ -20,11 +20,7 @@ public class RestClient {
 
     private static final String TAG = "RestClient";
 
-    public static <T> T getService(Class<T> t, Verb verb, String path) {
-        return getService(Const.BASE_URL, t, verb, path);
-    }
-
-    public static <T> T getService(String host, Class<T> t, final Verb verb, final String path) {
+    public static <T> T getService(final String host, Class<T> t, final Verb verb, final String path) {
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -33,7 +29,7 @@ public class RestClient {
                                            @Override
                                            public void intercept(RequestFacade request) {
                                                request.addHeader("Accept", "application/json");
-                                               addAuthHeader(request, verb, path);
+                                               addAuthHeader(request, verb, host + path);
                                            }
                                        }
                 )
@@ -52,7 +48,7 @@ public class RestClient {
         String secret = SharedPreferenceUtil.getValue(Const.USER_INFO_FILE, Const.USER_SECRET);
         String token = SharedPreferenceUtil.getValue(Const.USER_INFO_FILE, Const.USER_TOKEN);
 
-        path = Const.BASE_URL + path;
+
         String authHeader = MoefouApi10a.getOAuthService().getAuthorizationHeader(verb, secret, token, verifier, path);
         request.addHeader(OAuthConstants.HEADER, authHeader);
     }

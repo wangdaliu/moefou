@@ -1,6 +1,7 @@
 package com.moefou.android.api;
 
 
+import com.moefou.android.object.fm.FmResponse;
 import com.moefou.android.object.user.UserResponse;
 import com.moefou.android.object.wiki.WikiResponse;
 
@@ -30,10 +31,14 @@ public interface MoefouApi {
             @Query("perpage") int perpage
     );
 
+    @GET("/listen/playlist")
+    FmResponse getPlaylist(
+            @Query("api") String api
+    );
+
     @GET("/{wiki_id}/relationships.json")
     String getRelationships(
             @Path("wiki_id") int wiki_id,
             @Query("obj_type") String objType
-
     );
 }

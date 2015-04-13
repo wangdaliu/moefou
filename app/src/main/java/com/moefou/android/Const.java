@@ -14,6 +14,8 @@ public class Const {
 
     public static final String BASE_URL = "http://api.moefou.org";
 
+    public static final String BASE_FM_URL = "http://moe.fm";
+
     public static final String MUSIC = "music";
 
     public static final String RADIO = "radio";
