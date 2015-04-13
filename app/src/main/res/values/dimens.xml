@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_drawer_width">280dp</dimen>
     <dimen name="feed_refresh_top_padding">64dp</dimen>
+    <dimen name="header_height">250dp</dimen>
+    <dimen name="header_logo_size">100dp</dimen>
 </resources>

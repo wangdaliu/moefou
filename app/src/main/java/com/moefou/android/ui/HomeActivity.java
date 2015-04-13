@@ -95,7 +95,6 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     }
 
 
-
     private void fetchData() {
         // fetch user
         new FetchUserTask().execute();
