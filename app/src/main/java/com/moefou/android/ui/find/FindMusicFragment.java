@@ -1,4 +1,4 @@
-package com.moefou.android.ui.home;
+package com.moefou.android.ui.find;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,10 +15,10 @@ import com.moefou.android.ui.BaseFragment;
 
 
 
-public class HomeFragment extends BaseFragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener, TabHost.TabContentFactory {
+public class FindMusicFragment extends BaseFragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener, TabHost.TabContentFactory {
 
     private TabHost mTabHost;
-    private HomePagerAdapter mPagerAdapter;
+    private FindMusicPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
 
     @Override
@@ -32,7 +32,7 @@ public class HomeFragment extends BaseFragment implements ViewPager.OnPageChange
 
         mViewPager = (ViewPager) view.findViewById(R.id.vp_pages);
         mViewPager.setOffscreenPageLimit(2);
-        mPagerAdapter = new HomePagerAdapter(this);
+        mPagerAdapter = new FindMusicPagerAdapter(this);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOnPageChangeListener(this);
 

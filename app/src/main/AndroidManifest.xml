@@ -29,6 +29,14 @@
             android:name=".ui.side.UserDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"></activity>
 
+        <activity
+            android:name=".ui.find.RadioDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+
+        <activity
+            android:name=".ui.find.MusicDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+
         <provider
             android:authorities="com.moefou.android"
             android:exported="true"

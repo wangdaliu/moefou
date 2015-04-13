@@ -1,4 +1,4 @@
-package com.moefou.android.ui.home;
+package com.moefou.android.ui.find;
 
 import android.content.Context;
 import android.database.Cursor;

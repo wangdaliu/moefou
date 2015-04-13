@@ -17,7 +17,9 @@ public class MoeTables {
 
         public static final String WIKI_JOIN_WIKICOVER = "WIKI_JOIN_WIKICOVER";
 
-        public static final String WIKI_ID = "T_WIKI._ID";
+        public static final String ID = "T_WIKI._ID";
+
+        public static final String WIKI_ID = "T_WIKI.wiki_id";
 
         public static final String WIKI_TITLE = "T_WIKI.wiki_title";
 
@@ -37,6 +39,7 @@ public class MoeTables {
         public static HashMap<String, String> projectionMap = new HashMap<String, String>();
 
         static {
+            projectionMap.put(ID, ID);
             projectionMap.put(WIKI_ID, WIKI_ID);
             projectionMap.put(WIKI_TITLE, WIKI_TITLE);
             projectionMap.put(WIKI_TYPE, WIKI_TYPE);

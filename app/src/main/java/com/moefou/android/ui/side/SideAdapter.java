@@ -49,7 +49,7 @@ public class SideAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (((HomeActivity) mContext).mCurrentView == null && mLabelArray[position].equals(mContext.getResources().getString(R.string.my_music))) {
+        if (((HomeActivity) mContext).mCurrentView == null && mLabelArray[position].equals(mContext.getResources().getString(R.string.my_radio))) {
             ((HomeActivity) mContext).mCurrentView = convertView;
             ((TypefaceTextView) convertView.findViewById(R.id.label)).setTextColor(mContext.getResources().getColor(R.color.item_focus));
         }

@@ -1,5 +1,6 @@
-package com.moefou.android.ui.home;
+package com.moefou.android.ui.find;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.moefou.android.Const;
 import com.moefou.android.R;
 import com.moefou.android.event.BusProvider;
 import com.moefou.android.event.FetchWikiEvent;
+import com.moefou.android.provider.MoeTables;
 import com.moefou.android.provider.MoeTables.TWikiJoinTWikiCover;
 import com.moefou.android.task.FetchWikiTask;
 import com.moefou.android.ui.BaseFragment;
@@ -67,7 +70,7 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
         fetchData(false);
     }
 
-    private void fetchData(boolean reload){
+    private void fetchData(boolean reload) {
         new FetchWikiTask(mWikiType, reload).execute();
     }
 
@@ -104,7 +107,19 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Cursor cursor = (Cursor) mAdapter.getItem(position);
+        String wikiType = cursor.getString(cursor.getColumnIndex(MoeTables.TWiki.WIKI_TYPE));
+        int wikiId = cursor.getInt(cursor.getColumnIndex(MoeTables.TWiki.WIKI_ID));
+        String wikiTitle = cursor.getString(cursor.getColumnIndex(MoeTables.TWiki.WIKI_TITLE));
+        Intent intent;
+        if (wikiType.equals(Const.RADIO)) {
+            intent = new Intent(getActivity(), RadioDetailActivity.class);
+        } else {
+            intent = new Intent(getActivity(), MusicDetailActivity.class);
+        }
+        intent.putExtra("wiki_title", wikiTitle);
+        intent.putExtra("wiki_id", wikiId);
+        startActivity(intent);
     }
 
     @Subscribe

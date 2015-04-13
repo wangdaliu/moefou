@@ -1,6 +1,8 @@
 package com.moefou.android.api;
 
 
+import android.util.Log;
+
 import com.moefou.android.object.user.UserResponse;
 import com.moefou.android.object.wiki.WikiResponse;
 
@@ -8,6 +10,7 @@ import org.scribe.model.Verb;
 
 public class MoefouManagerImpl implements MoefouManager {
 
+    private static final String TAG = "MoefouManagerImpl";
     private String accessToken;
 
     private String accessTokenSecret;
@@ -56,5 +59,16 @@ public class MoefouManagerImpl implements MoefouManager {
 
         }
         return response;
+    }
+
+    @Override
+    public void getRelationships(int wikiId, String objType) {
+        MoefouApi api = RestClient.getService(MoefouApi.class, Verb.GET, "/" + wikiId + "/relationships.json" + "?obj_type=" + objType);
+        try {
+            api.getRelationships(wikiId, objType);
+        } catch (Exception e) {
+
+            Log.e(TAG, "Exception " + e);
+        }
     }
 }

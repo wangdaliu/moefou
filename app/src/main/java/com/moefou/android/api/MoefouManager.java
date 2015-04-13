@@ -16,4 +16,6 @@ public interface MoefouManager {
 
     public WikiResponse getWikiList(String wikiType, int page, int perpage);
 
+    public void getRelationships(int wikiId, String objType);
+
 }

@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.moefou.android.ui.fav.FavouriteFragment;
-import com.moefou.android.ui.home.HomeFragment;
-import com.moefou.android.ui.offline.OfflineFragment;
+import com.moefou.android.ui.find.FindMusicFragment;
+import com.moefou.android.ui.radio.MyRadioFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
 
     public HomePagerAdapter(FragmentActivity activity) {
         super(activity.getSupportFragmentManager());
-        mFragments.add(new HomeFragment());
-        mFragments.add(new OfflineFragment());
+        mFragments.add(new MyRadioFragment());
+        mFragments.add(new FindMusicFragment());
         mFragments.add(new FavouriteFragment());
     }
 

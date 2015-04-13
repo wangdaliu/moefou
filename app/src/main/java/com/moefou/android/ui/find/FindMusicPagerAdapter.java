@@ -1,4 +1,4 @@
-package com.moefou.android.ui.home;
+package com.moefou.android.ui.find;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,11 +16,11 @@ import java.util.List;
 /**
  * Pager adapter for a user's different views
  */
-public class HomePagerAdapter extends FragmentPagerAdapter {
+public class FindMusicPagerAdapter extends FragmentPagerAdapter {
 
     private List<BaseFragment> mFragments = new ArrayList<BaseFragment>();
 
-    public HomePagerAdapter(Fragment fragment) {
+    public FindMusicPagerAdapter(Fragment fragment) {
         super(fragment.getChildFragmentManager());
         mFragments.add(getInstance(Const.RADIO));
         mFragments.add(getInstance(Const.MUSIC));
