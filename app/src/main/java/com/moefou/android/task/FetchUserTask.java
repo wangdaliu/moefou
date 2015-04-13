@@ -13,10 +13,8 @@ public class FetchUserTask extends SafeAsyncTask {
 
     @Override
     public Object call() throws Exception {
-        UserResponse userResponse = MoefouManagerImpl.getInstance().getCurrentUser();
-
         UserManager.getInstance().deleteCurrentUser();
-
+        UserResponse userResponse = MoefouManagerImpl.getInstance().getCurrentUser();
         User user = userResponse.getResponse().getUser();
         UserManager.getInstance().saveUser(user);
         return null;

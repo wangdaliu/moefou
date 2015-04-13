@@ -160,7 +160,6 @@ public class User {
         this.user_registered = cursor.getLong(cursor.getColumnIndex(TUser.USER_REGISTERED));
         this.user_lastactivity = cursor.getLong(cursor.getColumnIndex(TUser.USER_LAST_ACTIVITY));
         this.user_url = cursor.getString(cursor.getColumnIndex(TUser.USER_URL));
-        this.user_url = cursor.getString(cursor.getColumnIndex(TUser.USER_URL));
         this.user_fm_url = cursor.getString(cursor.getColumnIndex(TUser.USER_FM_URL));
         this.groups = cursor.getString(cursor.getColumnIndex(TUser.GROUPS));
         this.follower = cursor.getString(cursor.getColumnIndex(TUser.FOLLOWER));

@@ -9,11 +9,19 @@
     android:paddingLeft="30dp"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.moefou.android.ui.views.custom.RoundedCornerImageView
         android:id="@+id/icon"
         android:src="@mipmap/default_icon"
         android:layout_width="64dp"
-        android:layout_height="64dp"/>
+        android:layout_height="64dp"
+        android:scaleType="fitXY"
+        font:sriv_oval="false"
+        font:sriv_left_top_corner_radius="5dp"
+        font:sriv_right_bottom_corner_radius="5dp"
+        font:sriv_right_top_corner_radius="5dp"
+        font:sriv_left_bottom_corner_radius="5dp"
+        android:layout_centerVertical="true"/>
+
 
     <com.moefou.android.ui.views.font.TypefaceTextView
         android:id="@+id/name"

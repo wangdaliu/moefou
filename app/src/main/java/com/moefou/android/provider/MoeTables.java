@@ -109,6 +109,7 @@ public class MoeTables {
             projectionMap.put(USER_REGISTERED, USER_REGISTERED);
             projectionMap.put(USER_LAST_ACTIVITY, USER_LAST_ACTIVITY);
             projectionMap.put(USER_URL, USER_URL);
+            projectionMap.put(USER_FM_URL, USER_FM_URL);
             projectionMap.put(GROUPS, GROUPS);
             projectionMap.put(FOLLOWER, FOLLOWER);
             projectionMap.put(FOLLOWING, FOLLOWING);
