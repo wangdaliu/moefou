@@ -366,4 +366,144 @@ public class MoeTables {
             projectionMap.put(META_TYPE, META_TYPE);
         }
     }
+
+    public static class TPlaylist {
+
+        public static final String TABLE_NAME = "T_FM";
+
+        public static final Uri CONTENT_URI = Uri.parse("content://"
+                + AUTHORITY + "/" + TABLE_NAME);
+
+        public static final String ID = BaseColumns._ID;
+
+        public static final String UP_ID = "up_id";
+
+        public static final String URL = "url";
+
+        public static final String STREAM_LENGTH = "stream_length";
+
+        public static final String STREAM_TIME = "stream_time";
+
+        public static final String FILE_SIZE = "file_size";
+
+        public static final String FILE_TYPE = "file_type";
+
+        public static final String WIKI_ID = "wiki_id";
+
+        public static final String WIKI_TYPE = "wiki_type";
+
+        public static final String TITLE = "title";
+
+        public static final String WIKI_TITLE = "wiki_title";
+
+        public static final String WIKI_URL = "wiki_url";
+
+        public static final String SUB_ID = "sub_id";
+
+        public static final String SUB_TYPE = "sub_type";
+
+        public static final String SUB_TITLE = "sub_title";
+
+        public static final String SUB_URL = "sub_url";
+
+        public static final String ARTIST = "artist";
+
+        public static final String FAV_WIKI = "fav_wiki";
+
+        public static final String FAV_SUB = "fav_sub";
+
+        //create table sql
+        public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " ("
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + UP_ID + " INTEGER,"
+                + URL + " varchar(255),"
+                + STREAM_LENGTH + " varchar(255),"
+                + STREAM_TIME + " varchar(255),"
+                + FILE_SIZE + " INTEGER,"
+                + FILE_TYPE + " varchar(255),"
+                + WIKI_ID + " INTEGER,"
+                + WIKI_TYPE + " varchar(255),"
+                + TITLE + " varchar(255),"
+                + WIKI_TITLE + " varchar(255),"
+                + WIKI_URL + " varchar(255),"
+                + SUB_ID + " INTEGER,"
+                + SUB_TYPE + " varchar(255),"
+                + SUB_TITLE + " varchar(255),"
+                + SUB_URL + " varchar(255),"
+                + ARTIST + " varchar(255),"
+                + FAV_WIKI + " varchar(255),"
+                + FAV_SUB + " varchar(255))";
+
+        //default sort order
+        public static final String DEFAULT_SORT_ORDER = ID + " asc";
+
+        //projection map
+        public static HashMap<String, String> projectionMap = new HashMap<String, String>();
+
+        static {
+            projectionMap.put(ID, ID);
+            projectionMap.put(UP_ID, UP_ID);
+            projectionMap.put(URL, URL);
+            projectionMap.put(STREAM_LENGTH, STREAM_LENGTH);
+            projectionMap.put(STREAM_TIME, STREAM_TIME);
+            projectionMap.put(FILE_SIZE, FILE_SIZE);
+            projectionMap.put(FILE_TYPE, FILE_TYPE);
+            projectionMap.put(WIKI_ID, WIKI_ID);
+            projectionMap.put(WIKI_TYPE, WIKI_TYPE);
+            projectionMap.put(TITLE, TITLE);
+            projectionMap.put(WIKI_TITLE, WIKI_TITLE);
+            projectionMap.put(WIKI_URL, WIKI_URL);
+            projectionMap.put(SUB_ID, SUB_ID);
+            projectionMap.put(SUB_TYPE, SUB_TYPE);
+            projectionMap.put(SUB_TITLE, SUB_TITLE);
+            projectionMap.put(SUB_URL, SUB_URL);
+            projectionMap.put(ARTIST, ARTIST);
+            projectionMap.put(FAV_WIKI, FAV_WIKI);
+            projectionMap.put(FAV_SUB, FAV_SUB);
+        }
+    }
+
+    public static class TFmCover {
+
+        public static final String TABLE_NAME = "T_FM_COVER";
+
+        public static final Uri CONTENT_URI = Uri.parse("content://"
+                + AUTHORITY + "/" + TABLE_NAME);
+
+        public static final String ID = BaseColumns._ID;
+
+        public static final String FK_FM = "fk_fm";
+
+        public static final String SMALL = "small";
+
+        public static final String MEDIUM = "medium";
+
+        public static final String SQUARE = "square";
+
+        public static final String LARGE = "large";
+
+        //create table sql
+        public static final String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + " ("
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + FK_FM + " INTEGER,"
+                + SMALL + " varchar(255),"
+                + MEDIUM + " varchar(255),"
+                + SQUARE + " varchar(255),"
+                + LARGE + " varchar(255))";
+
+        //default sort order
+        public static final String DEFAULT_SORT_ORDER = ID + " asc";
+
+        //projection map
+        public static HashMap<String, String> projectionMap = new HashMap<String, String>();
+
+        static {
+            projectionMap.put(ID, ID);
+            projectionMap.put(FK_FM, FK_FM);
+            projectionMap.put(SMALL, SMALL);
+            projectionMap.put(MEDIUM, MEDIUM);
+            projectionMap.put(SQUARE, SQUARE);
+            projectionMap.put(LARGE, LARGE);
+        }
+    }
 }

@@ -18,6 +18,8 @@ import com.moefou.android.provider.MoeTables.TWikiCover;
 import com.moefou.android.provider.MoeTables.TWikiJoinTWikiCover;
 import com.moefou.android.provider.MoeTables.TWikiMeta;
 import com.moefou.android.provider.MoeTables.TWikiUserFav;
+import com.moefou.android.provider.MoeTables.TPlaylist;
+import com.moefou.android.provider.MoeTables.TFmCover;
 
 public class MoeProvider extends ContentProvider {
 
@@ -50,6 +52,14 @@ public class MoeProvider extends ContentProvider {
 
     private static final int WIKI_WITH_WIKICOVER = 13;
 
+    private static final int FM = 15;
+
+    private static final int FM_ID = 16;
+
+    private static final int FM_COVER = 17;
+
+    private static final int FM_COVER_ID = 18;
+
     //define the uri matcher
     private static UriMatcher matcher;
 
@@ -74,6 +84,12 @@ public class MoeProvider extends ContentProvider {
         matcher.addURI(MoeTables.AUTHORITY, TWikiUserFav.TABLE_NAME + "/#", WIKI_USERFAV_ID);
 
         matcher.addURI(MoeTables.AUTHORITY, TWikiJoinTWikiCover.WIKI_JOIN_WIKICOVER, WIKI_WITH_WIKICOVER);
+
+        matcher.addURI(MoeTables.AUTHORITY, TPlaylist.TABLE_NAME, FM);
+        matcher.addURI(MoeTables.AUTHORITY, TPlaylist.TABLE_NAME + "/#", FM_ID);
+
+        matcher.addURI(MoeTables.AUTHORITY, TFmCover.TABLE_NAME, FM_COVER);
+        matcher.addURI(MoeTables.AUTHORITY, TFmCover.TABLE_NAME + "/#", FM_COVER_ID);
     }
 
     public static SQLiteOpenHelper getSQLiteOpenHelper() {
@@ -148,6 +164,25 @@ public class MoeProvider extends ContentProvider {
                 qb.setTables(TWikiJoinTWikiCover.TABLE_NAME);
                 qb.setProjectionMap(TWikiJoinTWikiCover.projectionMap);
                 break;
+            case FM:
+                qb.setTables(TPlaylist.TABLE_NAME);
+                qb.setProjectionMap(TPlaylist.projectionMap);
+                break;
+            case FM_ID:
+                qb.setTables(TPlaylist.TABLE_NAME);
+                qb.setProjectionMap(TPlaylist.projectionMap);
+                qb.appendWhere(TPlaylist.ID + "=" + uri.getPathSegments().get(1));
+                break;
+            case FM_COVER:
+                qb.setTables(TFmCover.TABLE_NAME);
+                qb.setProjectionMap(TFmCover.projectionMap);
+                break;
+            case FM_COVER_ID:
+                qb.setTables(TFmCover.TABLE_NAME);
+                qb.setProjectionMap(TFmCover.projectionMap);
+                qb.appendWhere(TFmCover.ID + "=" + uri.getPathSegments().get(1));
+                break;
+
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);
         }
@@ -201,6 +236,12 @@ public class MoeProvider extends ContentProvider {
                 break;
             case WIKI_WITH_WIKICOVER:
                 tableName = TWikiJoinTWikiCover.TABLE_NAME;
+                break;
+            case FM:
+                tableName = TPlaylist.TABLE_NAME;
+                break;
+            case FM_COVER:
+                tableName = TFmCover.TABLE_NAME;
                 break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);
@@ -273,6 +314,20 @@ public class MoeProvider extends ContentProvider {
                 rowId = uri.getPathSegments().get(1);
                 count = db.delete(TWikiUserFav.TABLE_NAME, whereWithId(rowId, selection), null);
                 break;
+            case FM:
+                count = db.delete(TPlaylist.TABLE_NAME, selection, selectionArgs);
+                break;
+            case FM_ID:
+                rowId = uri.getPathSegments().get(1);
+                count = db.delete(TPlaylist.TABLE_NAME, whereWithId(rowId, selection), null);
+                break;
+            case FM_COVER:
+                count = db.delete(TFmCover.TABLE_NAME, selection, selectionArgs);
+                break;
+            case FM_COVER_ID:
+                rowId = uri.getPathSegments().get(1);
+                count = db.delete(TFmCover.TABLE_NAME, whereWithId(rowId, selection), null);
+                break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);
         }
@@ -329,6 +384,20 @@ public class MoeProvider extends ContentProvider {
                 id = Long.parseLong(uri.getPathSegments().get(1));
                 count = db.update(TWikiUserFav.TABLE_NAME, values, TWikiUserFav.ID + "=" + id, null);
                 break;
+            case FM:
+                count = db.update(TPlaylist.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            case FM_ID:
+                id = Long.parseLong(uri.getPathSegments().get(1));
+                count = db.update(TPlaylist.TABLE_NAME, values, TPlaylist.ID + "=" + id, null);
+                break;
+            case FM_COVER:
+                count = db.update(TFmCover.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            case FM_COVER_ID:
+                id = Long.parseLong(uri.getPathSegments().get(1));
+                count = db.update(TFmCover.TABLE_NAME, values, TFmCover.ID + "=" + id, null);
+                break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);
         }
@@ -377,6 +446,14 @@ public class MoeProvider extends ContentProvider {
                 break;
             case WIKI_WITH_WIKICOVER:
                 newOrder = TWikiJoinTWikiCover.DEFAULT_SORT_ORDER;
+                break;
+            case FM:
+            case FM_ID:
+                newOrder = TPlaylist.DEFAULT_SORT_ORDER;
+                break;
+            case FM_COVER:
+            case FM_COVER_ID:
+                newOrder = TFmCover.DEFAULT_SORT_ORDER;
                 break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);
