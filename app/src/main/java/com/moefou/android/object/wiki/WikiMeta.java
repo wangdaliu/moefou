@@ -3,7 +3,7 @@ package com.moefou.android.object.wiki;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.moefou.android.provider.MoeTables.*;
+import com.moefou.android.provider.MoeTables.TWikiMeta;
 
 public class WikiMeta {
 

@@ -1,7 +1,6 @@
 package com.moefou.android.api;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.moefou.android.Const;
 import com.moefou.android.util.MoefouApi10a;
@@ -13,10 +12,8 @@ import org.scribe.model.Verb;
 
 import java.util.concurrent.TimeUnit;
 
-import retrofit.ErrorHandler;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 import retrofit.client.OkClient;
 
 public class RestClient {

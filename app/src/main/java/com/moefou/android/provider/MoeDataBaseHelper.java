@@ -1,10 +1,15 @@
 package com.moefou.android.provider;
 
-import com.moefou.android.provider.MoeTables.*;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.moefou.android.provider.MoeTables.TIcon;
+import com.moefou.android.provider.MoeTables.TUser;
+import com.moefou.android.provider.MoeTables.TWiki;
+import com.moefou.android.provider.MoeTables.TWikiCover;
+import com.moefou.android.provider.MoeTables.TWikiMeta;
+import com.moefou.android.provider.MoeTables.TWikiUserFav;
 
 public class MoeDataBaseHelper extends SQLiteOpenHelper {
 

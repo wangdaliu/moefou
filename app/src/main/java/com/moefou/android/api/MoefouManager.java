@@ -4,8 +4,6 @@ package com.moefou.android.api;
 import com.moefou.android.object.user.UserResponse;
 import com.moefou.android.object.wiki.WikiResponse;
 
-import rx.Observable;
-
 public interface MoefouManager {
 
     public UserResponse getCurrentUser();

@@ -4,7 +4,6 @@ package com.moefou.android.api;
 import com.moefou.android.object.user.UserResponse;
 import com.moefou.android.object.wiki.WikiResponse;
 
-import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;

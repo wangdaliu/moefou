@@ -5,6 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="60dp"
               android:minHeight="60dp">
+
     <com.moefou.android.ui.views.font.TypefaceTextView
         android:id="@+id/title"
         android:layout_width="match_parent"

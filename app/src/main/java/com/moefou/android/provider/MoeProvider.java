@@ -15,9 +15,9 @@ import com.moefou.android.provider.MoeTables.TIcon;
 import com.moefou.android.provider.MoeTables.TUser;
 import com.moefou.android.provider.MoeTables.TWiki;
 import com.moefou.android.provider.MoeTables.TWikiCover;
+import com.moefou.android.provider.MoeTables.TWikiJoinTWikiCover;
 import com.moefou.android.provider.MoeTables.TWikiMeta;
 import com.moefou.android.provider.MoeTables.TWikiUserFav;
-import com.moefou.android.provider.MoeTables.TWikiJoinTWikiCover;
 
 public class MoeProvider extends ContentProvider {
 

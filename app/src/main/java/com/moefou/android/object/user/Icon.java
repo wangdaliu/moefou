@@ -3,7 +3,7 @@ package com.moefou.android.object.user;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.moefou.android.provider.MoeTables.*;
+import com.moefou.android.provider.MoeTables.TIcon;
 
 public class Icon {
 

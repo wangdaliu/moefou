@@ -14,7 +14,6 @@ import com.moefou.android.R;
 import com.moefou.android.ui.BaseFragment;
 
 
-
 public class FindMusicFragment extends BaseFragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener, TabHost.TabContentFactory {
 
     private TabHost mTabHost;

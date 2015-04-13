@@ -7,7 +7,7 @@ import com.moefou.android.R;
 import com.moefou.android.task.FetchRelationshipTask;
 import com.moefou.android.ui.BaseActivity;
 
-public class MusicDetailActivity extends BaseActivity{
+public class MusicDetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

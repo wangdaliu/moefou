@@ -1,6 +1,5 @@
 package com.moefou.android.ui.side;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.RectF;
 import android.net.Uri;

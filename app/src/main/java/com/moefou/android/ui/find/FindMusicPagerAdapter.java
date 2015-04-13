@@ -26,7 +26,7 @@ public class FindMusicPagerAdapter extends FragmentPagerAdapter {
         mFragments.add(getInstance(Const.MUSIC));
     }
 
-    private WikiFragment getInstance(String type){
+    private WikiFragment getInstance(String type) {
         WikiFragment radioFragment = new WikiFragment();
         Bundle bundle = new Bundle();
         bundle.putString("wiki_type", type);
