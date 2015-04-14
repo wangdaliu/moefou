@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:font="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:minHeight="80dp">
+
+    <com.moefou.android.ui.views.custom.RoundedCornerImageView
+        android:id="@+id/icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        font:sriv_oval="false"
+        font:sriv_left_top_corner_radius="5dp"
+        font:sriv_right_bottom_corner_radius="5dp"
+        font:sriv_right_top_corner_radius="5dp"
+        font:sriv_left_bottom_corner_radius="5dp"
+        android:layout_centerVertical="true"/>
+
+    <com.moefou.android.ui.views.font.TypefaceTextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="12sp"
+        android:singleLine="true"
+        font:typeface="roboto_regular"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/black54"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/icon"
+        android:layout_toLeftOf="@id/time"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
+        <com.moefou.android.ui.views.font.TypefaceTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            font:typeface="roboto_regular"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:paddingBottom="5dp"
+            android:textColor="@color/black87"/>
+
+        <com.moefou.android.ui.views.font.TypefaceTextView
+            android:id="@+id/artist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="12sp"
+            font:typeface="roboto_regular"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black54"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

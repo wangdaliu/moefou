@@ -20,6 +20,7 @@ import com.moefou.android.provider.MoeTables.TWikiMeta;
 import com.moefou.android.provider.MoeTables.TWikiUserFav;
 import com.moefou.android.provider.MoeTables.TPlaylist;
 import com.moefou.android.provider.MoeTables.TFmCover;
+import com.moefou.android.provider.MoeTables.TPlaylistJoinTFmCover;
 
 public class MoeProvider extends ContentProvider {
 
@@ -60,6 +61,8 @@ public class MoeProvider extends ContentProvider {
 
     private static final int FM_COVER_ID = 18;
 
+    private static final int FM_WITH_FMCOVER = 19;
+
     //define the uri matcher
     private static UriMatcher matcher;
 
@@ -83,13 +86,15 @@ public class MoeProvider extends ContentProvider {
         matcher.addURI(MoeTables.AUTHORITY, TWikiUserFav.TABLE_NAME, WIKI_USERFAV);
         matcher.addURI(MoeTables.AUTHORITY, TWikiUserFav.TABLE_NAME + "/#", WIKI_USERFAV_ID);
 
-        matcher.addURI(MoeTables.AUTHORITY, TWikiJoinTWikiCover.WIKI_JOIN_WIKICOVER, WIKI_WITH_WIKICOVER);
-
         matcher.addURI(MoeTables.AUTHORITY, TPlaylist.TABLE_NAME, FM);
         matcher.addURI(MoeTables.AUTHORITY, TPlaylist.TABLE_NAME + "/#", FM_ID);
 
         matcher.addURI(MoeTables.AUTHORITY, TFmCover.TABLE_NAME, FM_COVER);
         matcher.addURI(MoeTables.AUTHORITY, TFmCover.TABLE_NAME + "/#", FM_COVER_ID);
+
+        matcher.addURI(MoeTables.AUTHORITY, TWikiJoinTWikiCover.WIKI_JOIN_WIKICOVER, WIKI_WITH_WIKICOVER);
+
+        matcher.addURI(MoeTables.AUTHORITY, TPlaylistJoinTFmCover.FM_JOIN_FMCOVER, FM_WITH_FMCOVER);
     }
 
     public static SQLiteOpenHelper getSQLiteOpenHelper() {
@@ -182,7 +187,10 @@ public class MoeProvider extends ContentProvider {
                 qb.setProjectionMap(TFmCover.projectionMap);
                 qb.appendWhere(TFmCover.ID + "=" + uri.getPathSegments().get(1));
                 break;
-
+            case FM_WITH_FMCOVER:
+                qb.setTables(TPlaylistJoinTFmCover.TABLE_NAME);
+                qb.setProjectionMap(TPlaylistJoinTFmCover.projectionMap);
+                break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);
         }
@@ -454,6 +462,9 @@ public class MoeProvider extends ContentProvider {
             case FM_COVER:
             case FM_COVER_ID:
                 newOrder = TFmCover.DEFAULT_SORT_ORDER;
+                break;
+            case FM_WITH_FMCOVER:
+                newOrder = TPlaylistJoinTFmCover.DEFAULT_SORT_ORDER;
                 break;
             default:
                 throw new IllegalArgumentException("Unknow uri: " + uri);

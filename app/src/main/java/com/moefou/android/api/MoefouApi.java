@@ -33,7 +33,9 @@ public interface MoefouApi {
 
     @GET("/listen/playlist")
     FmResponse getPlaylist(
-            @Query("api") String api
+            @Query("api") String api,
+            @Query("page") int page,
+            @Query("perpage") int perpage
     );
 
     @GET("/{wiki_id}/relationships.json")

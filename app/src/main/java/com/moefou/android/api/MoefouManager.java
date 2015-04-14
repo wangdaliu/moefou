@@ -18,6 +18,6 @@ public interface MoefouManager {
     // TODO test failed.
     public void getRelationships(int wikiId, String objType);
 
-    public FmResponse getPlaylist();
+    public FmResponse getPlaylist(int page, int perpage);
 
 }

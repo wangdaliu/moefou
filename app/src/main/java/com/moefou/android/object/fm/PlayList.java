@@ -1,5 +1,10 @@
 package com.moefou.android.object.fm;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+
+import com.moefou.android.provider.MoeTables.*;
+
 public class PlayList {
 
     private long up_id;
@@ -191,4 +196,53 @@ public class PlayList {
     public void setFav_sub(String fav_sub) {
         this.fav_sub = fav_sub;
     }
+
+
+    public PlayList() {
+    }
+
+    public PlayList(Cursor cursor) {
+        this.up_id = cursor.getLong(cursor.getColumnIndex(TPlaylist.UP_ID));
+        this.url = cursor.getString(cursor.getColumnIndex(TPlaylist.URL));
+        this.stream_length = cursor.getString(cursor.getColumnIndex(TPlaylist.STREAM_LENGTH));
+        this.stream_time = cursor.getString(cursor.getColumnIndex(TPlaylist.STREAM_TIME));
+        this.file_size = cursor.getInt(cursor.getColumnIndex(TPlaylist.FILE_SIZE));
+        this.file_type = cursor.getString(cursor.getColumnIndex(TPlaylist.FILE_TYPE));
+        this.wiki_id = cursor.getInt(cursor.getColumnIndex(TPlaylist.WIKI_ID));
+        this.wiki_type = cursor.getString(cursor.getColumnIndex(TPlaylist.WIKI_TYPE));
+        this.title = cursor.getString(cursor.getColumnIndex(TPlaylist.TITLE));
+        this.wiki_title = cursor.getString(cursor.getColumnIndex(TPlaylist.WIKI_TITLE));
+        this.wiki_url = cursor.getString(cursor.getColumnIndex(TPlaylist.WIKI_URL));
+        this.sub_id = cursor.getLong(cursor.getColumnIndex(TPlaylist.SUB_ID));
+        this.sub_type = cursor.getString(cursor.getColumnIndex(TPlaylist.SUB_TYPE));
+        this.sub_title = cursor.getString(cursor.getColumnIndex(TPlaylist.SUB_TITLE));
+        this.sub_url = cursor.getString(cursor.getColumnIndex(TPlaylist.SUB_URL));
+        this.artist = cursor.getString(cursor.getColumnIndex(TPlaylist.ARTIST));
+        this.fav_wiki = cursor.getString(cursor.getColumnIndex(TPlaylist.FAV_WIKI));
+        this.fav_sub = cursor.getString(cursor.getColumnIndex(TPlaylist.FAV_SUB));
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(TPlaylist.UP_ID, up_id);
+        values.put(TPlaylist.URL, url);
+        values.put(TPlaylist.STREAM_LENGTH, stream_length);
+        values.put(TPlaylist.STREAM_TIME, stream_time);
+        values.put(TPlaylist.FILE_SIZE, file_size);
+        values.put(TPlaylist.FILE_TYPE, file_type);
+        values.put(TPlaylist.WIKI_ID, wiki_id);
+        values.put(TPlaylist.WIKI_TYPE, wiki_type);
+        values.put(TPlaylist.TITLE, title);
+        values.put(TPlaylist.WIKI_TITLE, wiki_title);
+        values.put(TPlaylist.WIKI_URL, wiki_url);
+        values.put(TPlaylist.SUB_ID, sub_id);
+        values.put(TPlaylist.SUB_TYPE, sub_type);
+        values.put(TPlaylist.SUB_TITLE, sub_title);
+        values.put(TPlaylist.SUB_URL, sub_url);
+        values.put(TPlaylist.ARTIST, artist);
+        values.put(TPlaylist.FAV_WIKI, fav_wiki);
+        values.put(TPlaylist.FAV_SUB, fav_sub);
+        return values;
+    }
+
 }

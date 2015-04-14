@@ -1,26 +1,14 @@
 package com.moefou.android.object.fm;
 
-import java.util.List;
-
 public class FmResponse {
 
-    private FmResponseInformation information;
+    private FmResponseObject response;
 
-    private List<PlayList> playlist;
-
-    public FmResponseInformation getInformation() {
-        return information;
+    public FmResponseObject getResponse() {
+        return response;
     }
 
-    public void setInformation(FmResponseInformation information) {
-        this.information = information;
-    }
-
-    public List<PlayList> getPlaylist() {
-        return playlist;
-    }
-
-    public void setPlaylist(List<PlayList> playlist) {
-        this.playlist = playlist;
+    public void setResponse(FmResponseObject response) {
+        this.response = response;
     }
 }

@@ -10,6 +10,8 @@ import com.moefou.android.provider.MoeTables.TWiki;
 import com.moefou.android.provider.MoeTables.TWikiCover;
 import com.moefou.android.provider.MoeTables.TWikiMeta;
 import com.moefou.android.provider.MoeTables.TWikiUserFav;
+import com.moefou.android.provider.MoeTables.TPlaylist;
+import com.moefou.android.provider.MoeTables.TFmCover;
 
 public class MoeDataBaseHelper extends SQLiteOpenHelper {
 
@@ -51,6 +53,14 @@ public class MoeDataBaseHelper extends SQLiteOpenHelper {
             + " WHERE "
             + TIcon.FK_USER + "=OLD." + TUser.ID + "; END;";
 
+    private static final String delete_fm_cover_trigger = "CREATE TRIGGER delete_fm_cover_trigger AFTER DELETE ON "
+            + TPlaylist.TABLE_NAME
+            + " for each row BEGIN "
+            + " DELETE FROM "
+            + TFmCover.TABLE_NAME
+            + " WHERE "
+            + TFmCover.FK_FM + "=OLD." + TPlaylist.ID + "; END;";
+
     private MoeDataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -76,10 +86,14 @@ public class MoeDataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(TWikiMeta.CREATE_TABLE_SQL);
         db.execSQL(TWikiUserFav.CREATE_TABLE_SQL);
 
+        db.execSQL(TPlaylist.CREATE_TABLE_SQL);
+        db.execSQL(TFmCover.CREATE_TABLE_SQL);
+
         db.execSQL(delete_wiki_cover_trigger);
         db.execSQL(delete_wiki_meta_trigger);
         db.execSQL(delete_wiki_user_fav_trigger);
         db.execSQL(delete_icon_trigger);
+        db.execSQL(delete_fm_cover_trigger);
     }
 
     @Override
@@ -90,6 +104,8 @@ public class MoeDataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TWikiCover.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TWikiMeta.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TWikiUserFav.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TPlaylist.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TFmCover.TABLE_NAME);
         onCreate(db);
     }
 }

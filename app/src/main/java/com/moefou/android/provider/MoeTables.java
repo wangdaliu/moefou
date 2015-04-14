@@ -9,6 +9,47 @@ public class MoeTables {
 
     public static final String AUTHORITY = "com.moefou.android";
 
+
+    public static class TPlaylistJoinTFmCover {
+        public static final String TABLE_NAME = TPlaylist.TABLE_NAME
+                + " LEFT JOIN "
+                + TFmCover.TABLE_NAME
+                + " ON (T_FM._ID = T_FM_COVER.fk_fm)";
+
+        public static final String FM_JOIN_FMCOVER = "FM_JOIN_FMCOVER";
+
+        public static final String ID = "T_FM._ID";
+
+        public static final String UP_ID = "T_FM.up_id";
+
+        public static final String TITLE = "T_FM.title";
+
+        public static final String ARTIST = "T_FM.artist";
+
+        public static final String STREAM_TIME = "T_FM.stream_time";
+
+        public static final String SUB_ID = "T_FM.sub_id";
+
+        public static final String FM_COVER_SMALL = "T_FM_COVER.small";
+
+        public static final Uri CONTENT_URI_WIKI_JOIN_COVER = Uri.parse("content://"
+                + AUTHORITY + "/" + FM_JOIN_FMCOVER);
+
+        public static final String DEFAULT_SORT_ORDER = UP_ID + " desc";
+
+        public static HashMap<String, String> projectionMap = new HashMap<String, String>();
+
+        static {
+            projectionMap.put(ID, ID);
+            projectionMap.put(UP_ID, UP_ID);
+            projectionMap.put(TITLE, TITLE);
+            projectionMap.put(ARTIST, ARTIST);
+            projectionMap.put(STREAM_TIME, STREAM_TIME);
+            projectionMap.put(SUB_ID, SUB_ID);
+            projectionMap.put(FM_COVER_SMALL, FM_COVER_SMALL);
+        }
+    }
+
     public static class TWikiJoinTWikiCover {
         public static final String TABLE_NAME = TWiki.TABLE_NAME
                 + " LEFT JOIN "

@@ -42,7 +42,7 @@ public class FetchWikiTask extends SafeAsyncTask {
         }
 
         WikiResponse wikiResponse = MoefouManagerImpl.getInstance().getWikiList(mWikiType, page++, PERPAGE);
-        if (null == wikiResponse || null == wikiResponse.getResponse().getWikis()) {
+        if (null == wikiResponse || null == wikiResponse.getResponse() || null == wikiResponse.getResponse().getWikis()) {
             return null;
         }
 
