@@ -93,7 +93,12 @@ public class MyRadioFragment extends BaseFragment implements LoaderManager.Loade
 
     @Subscribe
     public void onFetchPlaylistEvent(FetchPlaylistEvent event) {
-        getLoaderManager().restartLoader(0, null, this);
+        if (event.success) {
+            getLoaderManager().restartLoader(0, null, this);
+        } else {
+            stopRefreshing();
+            mListView.onLoadMoreComplete();
+        }
     }
 
     @Override
@@ -105,6 +110,7 @@ public class MyRadioFragment extends BaseFragment implements LoaderManager.Loade
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         mAdapter.swapCursor(cursor);
         stopRefreshing();
+        mListView.onLoadMoreComplete();
     }
 
     @Override

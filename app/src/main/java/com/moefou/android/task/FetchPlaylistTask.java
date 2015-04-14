@@ -37,12 +37,13 @@ public class FetchPlaylistTask extends SafeAsyncTask {
         }
         SharedPreferenceUtil.saveInt(Const.USER_INFO_FILE, MY_RADIO_PAGE, ++page);
         FmManager.getInstance().savePlayLists(response.getResponse().getPlaylist());
-        return null;
+        return "success";
     }
 
     @Override
-    protected void onFinally() throws RuntimeException {
-        super.onFinally();
-        BusProvider.getInstance().post(new FetchPlaylistEvent());
+    protected void onSuccess(Object o) throws Exception {
+        super.onSuccess(o);
+        BusProvider.getInstance().post(new FetchPlaylistEvent(o == null ? false : true));
     }
+
 }

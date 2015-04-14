@@ -62,12 +62,12 @@ public class FetchWikiTask extends SafeAsyncTask {
             default:
                 break;
         }
-        return null;
+        return "success";
     }
 
     @Override
-    protected void onFinally() throws RuntimeException {
-        super.onFinally();
-        BusProvider.getInstance().post(new FetchWikiEvent(false, mWikiType));
+    protected void onSuccess(Object o) throws Exception {
+        super.onSuccess(o);
+        BusProvider.getInstance().post(new FetchWikiEvent(o == null ? false : true, false, mWikiType));
     }
 }

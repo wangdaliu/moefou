@@ -22,12 +22,13 @@ import com.moefou.android.provider.MoeTables;
 import com.moefou.android.provider.MoeTables.TWikiJoinTWikiCover;
 import com.moefou.android.task.FetchWikiTask;
 import com.moefou.android.ui.BaseFragment;
+import com.moefou.android.ui.views.LoadMoreListView;
 import com.squareup.otto.Subscribe;
 
-public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, LoadMoreListView.OnLoadMoreListener {
 
     private WikiAdapter mAdapter;
-    private ListView mListView;
+    private LoadMoreListView mListView;
     private String mWikiType;
     private SwipeRefreshLayout mRefreshLayout;
     private int mRefreshViewOffset;
@@ -57,17 +58,19 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mListView = (ListView) view.findViewById(R.id.list);
+        mListView = (LoadMoreListView) view.findViewById(R.id.list);
         // Set up our adapter
         mAdapter = new WikiAdapter(getActivity(), R.layout.wiki_item, null);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
 
+        mListView.setOnLoadMoreListener(this);
+
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
 
         setupRefreshLayout();
 
-        fetchData(false);
+        fetchData(true);
     }
 
     private void fetchData(boolean reload) {
@@ -128,7 +131,12 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
             return;
         }
 
-        getLoaderManager().restartLoader(0, null, this);
+        if(event.isSuccess()){
+            getLoaderManager().restartLoader(0, null, this);
+        }else{
+            stopRefreshing();
+            mListView.onLoadMoreComplete();
+        }
     }
 
     @Override
@@ -152,10 +160,16 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         mAdapter.swapCursor(cursor);
         stopRefreshing();
+        mListView.onLoadMoreComplete();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
+    }
+
+    @Override
+    public void onLoadMore() {
+        fetchData(false);
     }
 }
