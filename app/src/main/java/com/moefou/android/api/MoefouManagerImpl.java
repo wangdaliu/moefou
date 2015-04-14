@@ -75,10 +75,10 @@ public class MoefouManagerImpl implements MoefouManager {
 
     @Override
     public FmResponse getPlaylist(int page, int perpage) {
-        MoefouApi api = RestClient.getService(Const.BASE_FM_URL, MoefouApi.class, Verb.GET, "/listen/playlist?api=json" + "&page=" + page + "&perpage=" + perpage);
+        MoefouApi api = RestClient.getService(Const.BASE_FM_URL, MoefouApi.class, Verb.GET, "/listen/playlist?api=json" + "&page=" + page + "&perpage=" + perpage + "&fav=radio");
         FmResponse response = null;
         try {
-            response = api.getPlaylist("json", page, perpage);
+            response = api.getPlaylist("json", page, perpage, "radio");
         } catch (Exception e) {
             Log.e(TAG, "getPlaylist Exception " + e);
         }

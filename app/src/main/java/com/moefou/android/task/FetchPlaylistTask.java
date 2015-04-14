@@ -23,6 +23,9 @@ public class FetchPlaylistTask extends SafeAsyncTask {
 
     @Override
     public Object call() throws Exception {
+        if (mReload) {
+            SharedPreferenceUtil.saveInt(Const.USER_INFO_FILE, MY_RADIO_PAGE, 1);
+        }
         int page = SharedPreferenceUtil.getInt(Const.USER_INFO_FILE, MY_RADIO_PAGE, 1);
         FmResponse response = MoefouManagerImpl.getInstance().getPlaylist(page, PERPAGE);
         if (null == response || null == response.getResponse() || null == response.getResponse().getPlaylist()) {
@@ -32,7 +35,7 @@ public class FetchPlaylistTask extends SafeAsyncTask {
         if (mReload) {
             FmManager.getInstance().deletePlayLists();
         }
-        SharedPreferenceUtil.saveInt(Const.USER_INFO_FILE, MY_RADIO_PAGE, page++);
+        SharedPreferenceUtil.saveInt(Const.USER_INFO_FILE, MY_RADIO_PAGE, ++page);
         FmManager.getInstance().savePlayLists(response.getResponse().getPlaylist());
         return null;
     }

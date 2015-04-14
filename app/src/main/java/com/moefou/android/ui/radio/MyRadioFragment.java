@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.moefou.android.R;
 import com.moefou.android.event.BusProvider;
@@ -18,13 +17,14 @@ import com.moefou.android.event.FetchPlaylistEvent;
 import com.moefou.android.provider.MoeTables;
 import com.moefou.android.task.FetchPlaylistTask;
 import com.moefou.android.ui.BaseFragment;
+import com.moefou.android.ui.views.LoadMoreListView;
 import com.squareup.otto.Subscribe;
 
-public class MyRadioFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MyRadioFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, LoadMoreListView.OnLoadMoreListener {
 
 
     private RadioAdapter mAdapter;
-    private ListView mListView;
+    private LoadMoreListView mListView;
     private SwipeRefreshLayout mRefreshLayout;
     private int mRefreshViewOffset;
 
@@ -48,12 +48,12 @@ public class MyRadioFragment extends BaseFragment implements LoaderManager.Loade
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mListView = (ListView) view.findViewById(R.id.list);
+        mListView = (LoadMoreListView) view.findViewById(R.id.list);
         // Set up our adapter
         mAdapter = new RadioAdapter(getActivity(), R.layout.radio_item, null);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
-
+        mListView.setOnLoadMoreListener(this);
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
 
         setupRefreshLayout();
@@ -131,5 +131,10 @@ public class MyRadioFragment extends BaseFragment implements LoaderManager.Loade
 
     private void fetchData(boolean reload) {
         new FetchPlaylistTask(reload).execute();
+    }
+
+    @Override
+    public void onLoadMore() {
+        fetchData(false);
     }
 }
