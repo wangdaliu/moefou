@@ -3,7 +3,7 @@ package com.moefou.android.object.fm;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.moefou.android.provider.MoeTables.*;
+import com.moefou.android.provider.MoeTables.TPlaylist;
 
 public class PlayList {
 

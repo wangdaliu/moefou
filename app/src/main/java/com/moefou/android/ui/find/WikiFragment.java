@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.moefou.android.Const;
 import com.moefou.android.R;
@@ -131,9 +130,9 @@ public class WikiFragment extends BaseFragment implements LoaderManager.LoaderCa
             return;
         }
 
-        if(event.isSuccess()){
+        if (event.isSuccess()) {
             getLoaderManager().restartLoader(0, null, this);
-        }else{
+        } else {
             stopRefreshing();
             mListView.onLoadMoreComplete();
         }

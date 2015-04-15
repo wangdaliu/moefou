@@ -91,7 +91,7 @@ public class PlayMusicLayout extends RelativeLayout {
                 mActionBottomView.getLayoutParams().height = actionBottomHeight;
 
                 Rect frame = new Rect();
-                ((Activity)context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+                ((Activity) context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
                 int statusBarHeight = frame.top;
 
                 DisplayMetrics dm = new DisplayMetrics();
@@ -147,50 +147,6 @@ public class PlayMusicLayout extends RelativeLayout {
             }
         });
     }
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                if (mInterpolation == 1) {
-//                    mTouchY = mMinHeaderTranslation - event.getY();
-//                } else {
-//                    mTouchY = event.getY();
-//                }
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//
-//                if (event.getY() - mTouchY < 0) {
-//                    return true;
-//                }
-//                float scrollY = Math.abs(event.getY() - mTouchY);
-//                float ratio = clamp(Math.min(scrollY, mMinHeaderTranslation) / mMinHeaderTranslation, 0.0f, 1.0f);
-//                mInterpolation = mSmoothInterpolator.getInterpolation(ratio);
-//
-//                interpolate(mPlayLayout, icon, mInterpolation);
-//                interpolate(mActionLayout, mActionBottomView, mInterpolation);
-//                interpolate(mContent, mContentBottomView, mInterpolation);
-//                interpolate(mTitleView, mInterpolation);
-//                setTitleAlpha((1 - clamp(5.0F * ratio - 4.0F, 0.0F, 1.0F)) / 2);
-//
-//                break;
-//            case MotionEvent.ACTION_UP:
-//
-//                if (mContent.getTranslationY() >= mMinHeaderTranslation / 4) {
-//                    // set to full screen
-//                    mInterpolation = 1;
-//                    interpolateToSize(1);
-//                } else {
-//                    // set to bottom screen
-//                    mInterpolation = 0;
-//                    interpolateToSize(0);
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//        return true;
-//    }
 
     private void interpolateToSize(float size) {
         interpolate(mPlayLayout, icon, size);

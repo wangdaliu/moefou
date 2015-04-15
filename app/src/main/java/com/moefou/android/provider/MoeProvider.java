@@ -11,16 +11,16 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.moefou.android.provider.MoeTables.TFmCover;
 import com.moefou.android.provider.MoeTables.TIcon;
+import com.moefou.android.provider.MoeTables.TPlaylist;
+import com.moefou.android.provider.MoeTables.TPlaylistJoinTFmCover;
 import com.moefou.android.provider.MoeTables.TUser;
 import com.moefou.android.provider.MoeTables.TWiki;
 import com.moefou.android.provider.MoeTables.TWikiCover;
 import com.moefou.android.provider.MoeTables.TWikiJoinTWikiCover;
 import com.moefou.android.provider.MoeTables.TWikiMeta;
 import com.moefou.android.provider.MoeTables.TWikiUserFav;
-import com.moefou.android.provider.MoeTables.TPlaylist;
-import com.moefou.android.provider.MoeTables.TFmCover;
-import com.moefou.android.provider.MoeTables.TPlaylistJoinTFmCover;
 
 public class MoeProvider extends ContentProvider {
 

@@ -39,6 +39,7 @@
         android:layout_toLeftOf="@id/time"
         android:layout_marginLeft="20dp"
         android:orientation="vertical">
+
         <com.moefou.android.ui.views.font.TypefaceTextView
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -62,7 +63,6 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/black54"/>
     </LinearLayout>
-
 
 
 </RelativeLayout>

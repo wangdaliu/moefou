@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 
 import com.moefou.android.R;
-import com.moefou.android.provider.MoeTables.*;
+import com.moefou.android.provider.MoeTables.TFmCover;
+import com.moefou.android.provider.MoeTables.TPlaylist;
 import com.moefou.android.ui.views.font.TypefaceTextView;
-import com.moefou.android.util.TimeFormatUtil;
 import com.squareup.picasso.Picasso;
 
 

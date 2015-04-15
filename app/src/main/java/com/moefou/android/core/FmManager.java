@@ -21,7 +21,7 @@ public class FmManager {
         return mFmManager;
     }
 
-    public void deletePlayLists(){
+    public void deletePlayLists() {
         resolver.delete(MoeTables.TPlaylist.CONTENT_URI, null, null);
     }
 
@@ -43,7 +43,7 @@ public class FmManager {
         }
     }
 
-    private void savePlayList(PlayList playList){
+    private void savePlayList(PlayList playList) {
         // save user
         Uri uri = resolver.insert(MoeTables.TPlaylist.CONTENT_URI, playList.toContentValues());
         // save icon
