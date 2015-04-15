@@ -42,6 +42,7 @@
                 android:layout_height="wrap_content">
 
                 <com.moefou.android.ui.views.custom.RoundedCornerImageView
+                    android:id="@+id/music_cover"
                     android:layout_centerInParent="true"
                     android:src="@mipmap/cover_large"
                     font:sriv_oval="true"

@@ -1,17 +1,23 @@
 package com.moefou.android.core;
 
 import android.content.ContentResolver;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
 import com.moefou.android.Application;
+import com.moefou.android.Const;
+import com.moefou.android.object.fm.FmCover;
 import com.moefou.android.object.fm.PlayList;
 import com.moefou.android.provider.MoeProvider;
 import com.moefou.android.provider.MoeTables;
+import com.moefou.android.util.SharedPreferenceUtil;
 
 import java.util.List;
 
 public class FmManager {
+
+    private static final String CURRENT_PLAYLIST_ID = "CURRENT_PLAYLIST_ID";
 
     private static FmManager mFmManager = new FmManager();
 
@@ -52,4 +58,38 @@ public class FmManager {
         resolver.insert(MoeTables.TFmCover.CONTENT_URI, playList.getCover().toContentValues());
     }
 
+    public PlayList queryOnePlayList() {
+        long id = SharedPreferenceUtil.getLong(Const.USER_INFO_FILE, CURRENT_PLAYLIST_ID, -1);
+        String where = null;
+        if (id > 0) {
+            id = ++id;
+            where = MoeTables.TPlaylistJoinTFmCover.ID + " = " + id;
+        }
+        PlayList playList = fetchFirstPlaylist(where);
+        if (null != playList) {
+            return playList;
+        }
+        return fetchFirstPlaylist(null);
+    }
+
+    private PlayList fetchFirstPlaylist(String where) {
+        Cursor cursor = null;
+        try {
+            cursor = resolver.query(MoeTables.TPlaylistJoinTFmCover.CONTENT_URI_WIKI_JOIN_COVER, null, where, null, null);
+            if (null != cursor && cursor.moveToFirst()) {
+                PlayList playList = new PlayList(cursor);
+                FmCover fmCover = new FmCover(cursor);
+                playList.setCover(fmCover);
+                SharedPreferenceUtil.saveLong(Const.USER_INFO_FILE, CURRENT_PLAYLIST_ID, playList.getId());
+                return playList;
+            }
+        } catch (Exception e) {
+
+        } finally {
+            if (null != cursor) {
+                cursor.close();
+            }
+        }
+        return null;
+    }
 }

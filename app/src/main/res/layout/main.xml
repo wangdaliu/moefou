@@ -32,6 +32,7 @@
         </RelativeLayout>
 
         <com.moefou.android.ui.PlayMusicLayout
+            android:id="@+id/play_music_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </com.moefou.android.ui.PlayMusicLayout>

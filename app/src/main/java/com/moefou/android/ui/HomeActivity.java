@@ -1,22 +1,30 @@
 package com.moefou.android.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.moefou.android.Application;
 import com.moefou.android.R;
 import com.moefou.android.event.BusProvider;
 import com.moefou.android.event.FetchUserEvent;
+import com.moefou.android.event.PlayMusicEvent;
+import com.moefou.android.object.fm.PlayList;
+import com.moefou.android.service.MoeService;
 import com.moefou.android.task.FetchUserTask;
 import com.moefou.android.ui.side.SideAdapter;
 import com.moefou.android.ui.side.SideLayout;
 import com.moefou.android.ui.views.custom.CustomViewPager;
 import com.moefou.android.ui.views.font.TypefaceTextView;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 
 public class HomeActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -27,6 +35,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
     private SideLayout mSideLayout;
     public View mCurrentView;
     private CustomViewPager mCustomViewPager;
+    private PlayMusicLayout mPlayMusicLayout;
 
     @Override
     public void onDestroy() {
@@ -50,6 +59,7 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
 
         getSupportActionBar().setTitle(getResources().getString(R.string.home));
 
+        mPlayMusicLayout = (PlayMusicLayout) findViewById(R.id.play_music_layout);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
@@ -87,6 +97,11 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
         mCustomViewPager.setAdapter(pagerAdapter);
 
         fetchData();
+
+
+        Intent workIntent = new Intent(Application.getInstance(), MoeService.class);
+        workIntent.putExtra(MoeService.OPERATION, 1);
+        startService(workIntent);
     }
 
     @Subscribe
@@ -113,6 +128,14 @@ public class HomeActivity extends BaseActivity implements AdapterView.OnItemClic
             ((TypefaceTextView) mCurrentView.findViewById(R.id.label)).setTextColor(getResources().getColor(R.color.black87));
         }
         mCurrentView = view;
+    }
+
+    @Subscribe
+    public void onPlayMusicEvent(PlayMusicEvent event) {
+        PlayList playList = event.mPlayList;
+
+        mPlayMusicLayout.updatePlayLayout(playList);
+
     }
 
 }

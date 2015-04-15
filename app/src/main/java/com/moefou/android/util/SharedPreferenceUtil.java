@@ -40,4 +40,15 @@ public class SharedPreferenceUtil {
         SharedPreferences sp = Application.getInstance().getSharedPreferences(fileName, Context.MODE_PRIVATE);
         return sp.getInt(key, defaultValue);
     }
+
+    public static void saveLong(String fileName, String key, long value) {
+        SharedPreferences sp = Application.getInstance().getSharedPreferences(fileName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putLong(key, value).apply();
+    }
+
+    public static long getLong(String fileName, String key, long defaultValue) {
+        SharedPreferences sp = Application.getInstance().getSharedPreferences(fileName, Context.MODE_PRIVATE);
+        return sp.getLong(key, defaultValue);
+    }
 }

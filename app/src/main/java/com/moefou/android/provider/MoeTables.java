@@ -10,6 +10,16 @@ public class MoeTables {
     public static final String AUTHORITY = "com.moefou.android";
 
 
+
+
+
+
+
+
+
+
+
+
     public static class TPlaylistJoinTFmCover {
         public static final String TABLE_NAME = TPlaylist.TABLE_NAME
                 + " LEFT JOIN "
@@ -22,15 +32,49 @@ public class MoeTables {
 
         public static final String UP_ID = "T_FM.up_id";
 
-        public static final String TITLE = "T_FM.title";
+        public static final String URL = "T_FM.url";
 
-        public static final String ARTIST = "T_FM.artist";
+        public static final String STREAM_LENGTH = "T_FM.stream_length";
 
         public static final String STREAM_TIME = "T_FM.stream_time";
 
+        public static final String FILE_SIZE = "T_FM.file_size";
+
+        public static final String FILE_TYPE = "T_FM.file_type";
+
+        public static final String WIKI_ID = "T_FM.wiki_id";
+
+        public static final String WIKI_TYPE = "T_FM.wiki_type";
+
+        public static final String TITLE = "T_FM.title";
+
+        public static final String WIKI_TITLE = "T_FM.wiki_title";
+
+        public static final String WIKI_URL = "T_FM.wiki_url";
+
         public static final String SUB_ID = "T_FM.sub_id";
 
-        public static final String FM_COVER_SMALL = "T_FM_COVER.small";
+        public static final String SUB_TYPE = "T_FM.sub_type";
+
+        public static final String SUB_TITLE = "T_FM.sub_title";
+
+        public static final String SUB_URL = "T_FM.sub_url";
+
+        public static final String ARTIST = "T_FM.artist";
+
+        public static final String FAV_WIKI = "T_FM.fav_wiki";
+
+        public static final String FAV_SUB = "T_FM.fav_sub";
+
+        public static final String FK_FM = "T_FM_COVER.fk_fm";
+
+        public static final String SMALL = "T_FM_COVER.small";
+
+        public static final String MEDIUM = "T_FM_COVER.medium";
+
+        public static final String SQUARE = "T_FM_COVER.square";
+
+        public static final String LARGE = "T_FM_COVER.large";
 
         public static final Uri CONTENT_URI_WIKI_JOIN_COVER = Uri.parse("content://"
                 + AUTHORITY + "/" + FM_JOIN_FMCOVER);
@@ -42,11 +86,28 @@ public class MoeTables {
         static {
             projectionMap.put(ID, ID);
             projectionMap.put(UP_ID, UP_ID);
-            projectionMap.put(TITLE, TITLE);
-            projectionMap.put(ARTIST, ARTIST);
+            projectionMap.put(URL, URL);
+            projectionMap.put(STREAM_LENGTH, STREAM_LENGTH);
             projectionMap.put(STREAM_TIME, STREAM_TIME);
+            projectionMap.put(FILE_SIZE, FILE_SIZE);
+            projectionMap.put(FILE_TYPE, FILE_TYPE);
+            projectionMap.put(WIKI_ID, WIKI_ID);
+            projectionMap.put(WIKI_TYPE, WIKI_TYPE);
+            projectionMap.put(TITLE, TITLE);
+            projectionMap.put(WIKI_TITLE, WIKI_TITLE);
+            projectionMap.put(WIKI_URL, WIKI_URL);
             projectionMap.put(SUB_ID, SUB_ID);
-            projectionMap.put(FM_COVER_SMALL, FM_COVER_SMALL);
+            projectionMap.put(SUB_TYPE, SUB_TYPE);
+            projectionMap.put(SUB_TITLE, SUB_TITLE);
+            projectionMap.put(SUB_URL, SUB_URL);
+            projectionMap.put(ARTIST, ARTIST);
+            projectionMap.put(FAV_WIKI, FAV_WIKI);
+            projectionMap.put(FAV_SUB, FAV_SUB);
+            projectionMap.put(FK_FM, FK_FM);
+            projectionMap.put(SMALL, SMALL);
+            projectionMap.put(MEDIUM, MEDIUM);
+            projectionMap.put(SQUARE, SQUARE);
+            projectionMap.put(LARGE, LARGE);
         }
     }
 

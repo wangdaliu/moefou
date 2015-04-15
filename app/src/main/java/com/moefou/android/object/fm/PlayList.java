@@ -7,6 +7,8 @@ import com.moefou.android.provider.MoeTables.TPlaylist;
 
 public class PlayList {
 
+    private long id;
+
     private long up_id;
 
     private String url;
@@ -44,6 +46,14 @@ public class PlayList {
     private String fav_wiki;
 
     private String fav_sub;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getUp_id() {
         return up_id;
@@ -202,6 +212,7 @@ public class PlayList {
     }
 
     public PlayList(Cursor cursor) {
+        this.id = cursor.getLong(cursor.getColumnIndex(TPlaylist.ID));
         this.up_id = cursor.getLong(cursor.getColumnIndex(TPlaylist.UP_ID));
         this.url = cursor.getString(cursor.getColumnIndex(TPlaylist.URL));
         this.stream_length = cursor.getString(cursor.getColumnIndex(TPlaylist.STREAM_LENGTH));

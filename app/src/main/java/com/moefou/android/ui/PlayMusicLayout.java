@@ -2,8 +2,10 @@ package com.moefou.android.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.net.Uri;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -17,9 +19,14 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.moefou.android.Application;
 import com.moefou.android.R;
+import com.moefou.android.object.fm.PlayList;
+import com.moefou.android.service.MoeService;
 import com.moefou.android.ui.views.AlphaForegroundColorSpan;
+import com.moefou.android.ui.views.custom.RoundedCornerImageView;
 import com.moefou.android.ui.views.font.TypefaceTextView;
+import com.squareup.picasso.Picasso;
 
 public class PlayMusicLayout extends RelativeLayout {
 
@@ -43,6 +50,7 @@ public class PlayMusicLayout extends RelativeLayout {
     private int mTitleColor;
     private float mTouchY = 0;
     private float mInterpolation = 0;
+    private RoundedCornerImageView mCoverImage;
 
     public PlayMusicLayout(Context context) {
         this(context, null);
@@ -54,6 +62,7 @@ public class PlayMusicLayout extends RelativeLayout {
 
     public PlayMusicLayout(final Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
 
         LayoutInflater.from(context).inflate(R.layout.play_music_layout, this);
 
@@ -74,6 +83,8 @@ public class PlayMusicLayout extends RelativeLayout {
         icon = (ImageView) findViewById(R.id.icon);
 
         mTitleView = (TypefaceTextView) findViewById(R.id.title);
+
+        mCoverImage = (RoundedCornerImageView) findViewById(R.id.music_cover);
 
         mActionFavImage.setEnabled(false);
         mActionDeleteImage.setEnabled(false);
@@ -189,5 +200,9 @@ public class PlayMusicLayout extends RelativeLayout {
     private RectF getOnScreenRect(RectF rect, View view) {
         rect.set(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
         return rect;
+    }
+
+    public void updatePlayLayout(PlayList playList) {
+        Picasso.with(Application.getInstance()).load(Uri.parse(playList.getCover().getSquare())).into(mCoverImage);
     }
 }
