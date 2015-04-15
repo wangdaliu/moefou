@@ -31,10 +31,10 @@
                 android:layout_height="match_parent"/>
         </RelativeLayout>
 
-        <FrameLayout
-            android:id="@+id/floating_action_group"
+        <com.moefou.android.ui.PlayMusicLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_height="match_parent">
+        </com.moefou.android.ui.PlayMusicLayout>
 
     </FrameLayout>
 

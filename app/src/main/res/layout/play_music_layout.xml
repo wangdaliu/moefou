@@ -1,131 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:font="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <View
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:background="@android:color/white"></View>
 
-        <com.moefou.android.ui.views.font.TypefaceTextView
-            android:id="@+id/title"
-            font:typeface="roboto_medium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/green"
-            android:layout_centerHorizontal="true"
-            android:textSize="30sp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/my_private_music"/>
-
-        <RelativeLayout
-            android:id="@+id/play_layout"
-            android:layout_below="@id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <com.moefou.android.ui.views.custom.RoundedCornerImageView
-                android:layout_centerInParent="true"
-                android:src="@mipmap/cover_large"
-                font:sriv_oval="true"
-                android:layout_width="200dp"
-                android:layout_height="200dp"/>
-
-            <ImageView
-                android:src="@mipmap/bg_player_cover_default"
-                android:layout_centerInParent="true"
-                android:layout_width="60dp"
-                android:layout_height="60dp">
-            </ImageView>
-
-        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/music_detail"
-            android:layout_weight="1"
-            android:layout_below="@id/play_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <com.moefou.android.ui.views.font.TypefaceTextView
-                android:id="@+id/music_name"
+                android:id="@+id/title"
                 font:typeface="roboto_medium"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/green"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"/>
+                android:textSize="30sp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/my_private_music"/>
 
-            <com.moefou.android.ui.views.font.TypefaceTextView
-                android:id="@+id/music_author"
-                font:typeface="roboto_regular"
+            <RelativeLayout
+                android:id="@+id/play_layout"
+                android:layout_below="@id/title"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.moefou.android.ui.views.custom.RoundedCornerImageView
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/cover_large"
+                    font:sriv_oval="true"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"/>
+
+                <ImageView
+                    android:src="@mipmap/bg_player_cover_default"
+                    android:layout_centerInParent="true"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp">
+                </ImageView>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/music_detail"
+                android:layout_weight="1"
+                android:layout_below="@id/play_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/green"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:textSize="14sp"/>
+                android:orientation="vertical">
+
+                <com.moefou.android.ui.views.font.TypefaceTextView
+                    android:id="@+id/music_name"
+                    font:typeface="roboto_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="16sp"/>
+
+                <com.moefou.android.ui.views.font.TypefaceTextView
+                    android:id="@+id/music_author"
+                    font:typeface="roboto_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/action_layout"
+                android:layout_weight="1"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/action_unfav"
+                    android:layout_weight="1"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/unfav"/>
+
+                <ImageView
+                    android:id="@+id/action_delete"
+                    android:layout_weight="1"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/delete"/>
+
+                <ImageView
+                    android:id="@+id/action_next"
+                    android:layout_weight="1"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/next"/>
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/action_layout"
-            android:layout_weight="1"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+
+        <View
+            android:id="@+id/bottom_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/action_unfav"
-                android:layout_weight="1"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/unfav"/>
+            android:layout_height="@dimen/bottom"
+            android:layout_alignParentBottom="true">
+        </View>
 
-            <ImageView
-                android:id="@+id/action_delete"
-                android:layout_weight="1"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/delete"/>
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
 
-            <ImageView
-                android:id="@+id/action_next"
-                android:layout_weight="1"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/next"/>
-        </LinearLayout>
+        <View
+            android:id="@+id/action_bottom"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_width="160dp"
+            android:layout_height="40dp">
+        </View>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_marginLeft="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
+</FrameLayout>
 
-    <View
-        android:id="@+id/action_bottom"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_width="120dp"
-        android:layout_height="40dp">
-    </View>
-
-</RelativeLayout>
